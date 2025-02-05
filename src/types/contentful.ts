@@ -79,3 +79,24 @@ export interface TopHeaderBarEntry {
     contentTypeId: string;
 }
 
+export interface SlimFooter {
+    title?: string;
+    copyrightText?: string;
+    trademarkText?: string;
+    poweredByLink?: {
+        sys: {
+            id: string;
+        };
+        fields: ContentfulLink;
+        contentTypeId: string;
+    };
+}
+
+export interface SlimFooterEntry {
+    sys: {
+        id: string;
+    };
+    fields: SlimFooter;
+    contentTypeId: string;
+}
+

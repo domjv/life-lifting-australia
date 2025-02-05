@@ -6,6 +6,7 @@ import { Disclosure } from "@headlessui/react";
 import { getTopHeaderBar } from "@/lib/contentful";
 import { TopHeaderBar, TopHeaderBarEntry } from "@/types/contentful";
 import ContentfulLink from "./ContentfulLink";
+import { useTheme } from "next-themes";
 
 export const Navbar = ({
   topHeaderBar,
@@ -14,6 +15,7 @@ export const Navbar = ({
 }) => {
   const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
 
+  const { theme } = useTheme();
   return (
     <div className="w-full sticky top-0 z-50">
       <div className="bg-gray-800 text-white text-center py-2 flex gap-2 justify-end pe-3">
@@ -24,17 +26,27 @@ export const Navbar = ({
           <ContentfulLink key={link.fields.name} link={link} />
         ))}
       </div>
-      <nav className="container relative flex flex-wrap items-center justify-between mx-auto p-2 lg:justify-between xl:px-1 bg-white dark:bg-trueGray-900 shadow-md">
+      <nav className="container relative max-w-full flex items-center justify-between p-2 lg:justify-between xl:px-1 bg-white dark:bg-trueGray-900 shadow-md">
         <Link href="/">
           <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
             <span>
-              <Image
-                src="/img/logo.jpeg"
-                width="100"
-                alt="N"
-                height="32"
-                className="w-28"
-              />
+              {theme == "light" ? (
+                <Image
+                  src="/img/logo.svg"
+                  width="14"
+                  alt="N"
+                  height="14"
+                  className="w-28"
+                />
+              ) : (
+                <Image
+                  src="/img/logo-dark.svg"
+                  width="14"
+                  alt="N"
+                  height="14"
+                  className="w-28"
+                />
+              )}
             </span>
           </span>
         </Link>

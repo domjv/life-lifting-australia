@@ -1,5 +1,5 @@
 import { createClient, Link } from 'contentful'
-import { IconEntry, IconCollection, Icon, LinkEntry, ContentfulLink, TopHeaderBarEntry, TopHeaderBar } from '@/types/contentful'
+import { LinkEntry, TopHeaderBarEntry, SlimFooterEntry } from '@/types/contentful'
 
 const client = createClient({
     space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!,
@@ -78,4 +78,24 @@ export async function getTopHeaderBar(): Promise<TopHeaderBarEntry> {
         sys: entry.sys
     };
 
+}
+
+export async function getSlimFooter(): Promise<SlimFooterEntry> {
+    try {
+        const entries = await client.getEntries<SlimFooterEntry>({
+            content_type: 'slimFooter',
+            limit: 1,
+            include: 2  // Include nested entries (links and their icons)
+        });
+
+        const entry = entries.items[0];
+        return {
+            contentTypeId: entry.sys.id,
+            fields: entry.fields,
+            sys: entry.sys
+        };
+    } catch (error) {
+        console.error('Error fetching slim footer:', error);
+        throw error;
+    }
 }
