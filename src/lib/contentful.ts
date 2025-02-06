@@ -14,9 +14,9 @@ export async function getLink(id: string): Promise<LinkEntry | null> {
             include: 2 // Include nested entries (icon in this case)
         });
         return {
-            contentTypeId: entry.sys.id,
             fields: entry.fields,
-            sys: entry.sys
+            sys: entry.sys,
+            contentTypeId: 'link'
         };
     } catch (error) {
         console.error('Error fetching link:', error);
@@ -34,7 +34,7 @@ export async function getLinkByName(name: string): Promise<LinkEntry | null> {
 
         const entry = entries.items[0];
         return {
-            contentTypeId: entry.sys.id,
+            contentTypeId: 'link',
             fields: entry.fields,
             sys: entry.sys
         };
@@ -52,7 +52,7 @@ export async function getAllLinks(): Promise<LinkEntry[]> {
         });
         return entries.items.map((entry): LinkEntry => {
             return {
-                contentTypeId: entry.sys.id,
+                contentTypeId: 'link',
                 fields: entry.fields,
                 sys: entry.sys
             }
@@ -90,7 +90,7 @@ export async function getSlimFooter(): Promise<SlimFooterEntry> {
 
         const entry = entries.items[0];
         return {
-            contentTypeId: entry.sys.id,
+            contentTypeId: 'slimFooter',
             fields: entry.fields,
             sys: entry.sys
         };

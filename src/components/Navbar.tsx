@@ -7,6 +7,7 @@ import { getTopHeaderBar } from "@/lib/contentful";
 import { TopHeaderBar, TopHeaderBarEntry } from "@/types/contentful";
 import ContentfulLink from "./ContentfulLink";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export const Navbar = ({
   topHeaderBar,
@@ -15,7 +16,20 @@ export const Navbar = ({
 }) => {
   const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
 
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="w-28 h-14" />;
+  }
+
+  // Handle system preference when theme is set to "system"
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
   return (
     <div className="w-full sticky top-0 z-50">
       <div className="bg-gray-800 text-white text-center py-2 flex gap-2 justify-end pe-3">
@@ -30,9 +44,9 @@ export const Navbar = ({
         <Link href="/">
           <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
             <span>
-              {theme == "light" ? (
+              {currentTheme === "dark" ? (
                 <Image
-                  src="/img/logo.svg"
+                  src="/img/logo-dark.svg"
                   width="14"
                   alt="N"
                   height="14"
@@ -40,7 +54,7 @@ export const Navbar = ({
                 />
               ) : (
                 <Image
-                  src="/img/logo-dark.svg"
+                  src="/img/logo.svg"
                   width="14"
                   alt="N"
                   height="14"

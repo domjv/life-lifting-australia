@@ -4,15 +4,14 @@ export interface Icon {
     iconPrefix: string;
 }
 
-// Type for the Contentful response
 export interface IconEntry {
     sys: {
         id: string;
     };
     fields: Icon;
+    contentTypeId: 'icon';
 }
 
-// Type for multiple icons
 export interface IconCollection {
     items: IconEntry[];
 }
@@ -29,6 +28,7 @@ export interface ContentfulLink {
             id: string;
         };
         fields: Icon;
+        contentTypeId: 'icon';
     };
 }
 
@@ -37,7 +37,7 @@ export interface LinkEntry {
         id: string;
     };
     fields: ContentfulLink;
-    contentTypeId: string;
+    contentTypeId: 'link';
 }
 
 export interface LinkCollection {
@@ -53,21 +53,21 @@ export interface TopHeaderBar {
             id: string;
         };
         fields: ContentfulLink;
-        contentTypeId: string;
+        contentTypeId: 'link';
     };
     contactPhoneNumber?: {
         sys: {
             id: string;
         };
         fields: ContentfulLink;
-        contentTypeId: string;
+        contentTypeId: 'link';
     };
     socialMediaLinks?: Array<{
         sys: {
             id: string;
         };
         fields: ContentfulLink;
-        contentTypeId: string;
+        contentTypeId: 'link';
     }>;
 }
 
@@ -88,7 +88,7 @@ export interface SlimFooter {
             id: string;
         };
         fields: ContentfulLink;
-        contentTypeId: string;
+        contentTypeId: 'link';
     };
 }
 
@@ -97,6 +97,6 @@ export interface SlimFooterEntry {
         id: string;
     };
     fields: SlimFooter;
-    contentTypeId: string;
+    contentTypeId: 'slimFooter';
 }
 

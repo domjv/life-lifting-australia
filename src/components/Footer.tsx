@@ -114,7 +114,8 @@ export function Footer({ slimFooter }: { slimFooter: SlimFooterEntry }) {
           </div>
         </div>
         <SlimFooter footer={slimFooter} />
-      </Container>    </div>
+      </Container>{" "}
+    </div>
   );
 }
 

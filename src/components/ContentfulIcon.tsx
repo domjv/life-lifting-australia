@@ -2,7 +2,7 @@ import { Icon, IconEntry } from "@/types/contentful";
 import { IconName, IconPrefix } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas, faB } from "@fortawesome/free-solid-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 
 // Add all solid icons to the library
