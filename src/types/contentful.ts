@@ -2,6 +2,8 @@ import { Asset } from "contentful";
 
 export interface ContentfulSys {
     id: string;
+    spaceId: string;
+    environmentId: string;
 }
 
 export interface ContentfulIconType {
@@ -19,6 +21,8 @@ export interface ContentfulLinkType {
     openInNewTab: boolean;
     iconVisibility: boolean;
     icon?: ContentfulIconType;
+    displayAsButton: boolean;
+    isDarkButton: boolean;
     sys: ContentfulSys;
 }
 
@@ -60,24 +64,59 @@ export interface ContentfulFatFooterType {
     sys: ContentfulSys;
 }
 
+export interface ContentfulImageType {
+    url: string;
+    sys: ContentfulSys;
+    description: string;
+}
 
 export interface ContentfulNavbarType {
     title: string;
     stickyToTop: boolean;
-    logoLight: {
-        url: string;
-        sys: ContentfulSys;
-        description: string;
-    };
-    logoDark: {
-        url: string;
-        sys: ContentfulSys;
-        description: string;
-    };
+    logoLight: ContentfulImageType;
+    logoDark: ContentfulImageType;
     logoLink: ContentfulLinkType;
     navbarItems: ContentfulLinkListType;
     specialNavbarItem: ContentfulLinkType;
     links: ContentfulLinkCollection;
     helperTextForDarkLightModeSwitch: string;
     sys: ContentfulSys;
+}
+
+export interface ContentfulHeadingAndDescriptionType {
+    title: string;
+    heading: string;
+    headingAlignment: string;
+    headingSize: string;
+    subHeading: string;
+    description: {
+        json: {
+            content: [
+                value: string
+            ]
+        }
+    };
+    descriptionAlignment: string;
+    descriptionFontSize: string;
+    sys: ContentfulSys;
+}
+
+
+export interface ContentfulHeroSectionType {
+    title: string;
+    headingAndDescription: ContentfulHeadingAndDescriptionType;
+    buttonsCollection: ContentfulLinkCollection;
+    backgroundImage: ContentfulImageType;
+    sideImage: ContentfulImageType;
+    sys: ContentfulSys;
+}
+
+export interface ContentfulFrequentlyAskedQuestionType {
+    title: string;
+    heading: ContentfulHeadingAndDescriptionType;
+    questionsCollection: {
+        items: ContentfulFatFooterType
+    };
+    caption: string;
+
 }
