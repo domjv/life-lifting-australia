@@ -7,7 +7,6 @@ import { Testimonials } from "@/components/Testimonials";
 import { Faq } from "@/components/Faq";
 
 import { benefitOne, benefitTwo } from "@/components/data";
-import { getTopHeaderBar } from "@/lib/contentful";
 
 export default async function Home() {
   return (

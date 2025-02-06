@@ -1,101 +1,53 @@
-import { createClient, Link } from 'contentful'
-import { LinkEntry, TopHeaderBarEntry, SlimFooterEntry } from '@/types/contentful'
+import { ContentfulLinkType, ContentfulTopHeaderBarType, ContentfulFatFooterType, ContentfulNavbarType, ContentfulSlimFooterType } from '@/types/contentful';
+import { graphqlClient } from './graphql';
+import { GET_LINK, GET_FAT_FOOTER, GET_NAVBAR, GET_SLIM_FOOTER, GET_TOP_HEADER_BAR } from './queries';
 
-const client = createClient({
-    space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!,
-    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
-})
-
-export default client;
-
-export async function getLink(id: string): Promise<LinkEntry | null> {
+export async function getLink(id: string): Promise<ContentfulLinkType | null> {
     try {
-        const entry = await client.getEntry<LinkEntry>(id, {
-            include: 2 // Include nested entries (icon in this case)
-        });
-        return {
-            contentTypeId: entry.sys.id,
-            fields: entry.fields,
-            sys: entry.sys
-        };
+        const data = await graphqlClient.request<{ link: ContentfulLinkType }>(GET_LINK, { id });
+        return data.link;
     } catch (error) {
-        console.error('Error fetching link:', error);
+        console.error('Error fetching link via GraphQL:', error);
         return null;
     }
 }
 
-export async function getLinkByName(name: string): Promise<LinkEntry | null> {
-    try {
-        const entries = await client.getEntries<LinkEntry>({
-            content_type: 'link',
-            include: 2,
-            limit: 1
-        });
 
-        const entry = entries.items[0];
-        return {
-            contentTypeId: entry.sys.id,
-            fields: entry.fields,
-            sys: entry.sys
-        };
+export async function getTopHeaderBar(): Promise<ContentfulTopHeaderBarType | null> {
+    try {
+        const data = await graphqlClient.request<{ topHeaderBarCollection: { items: ContentfulTopHeaderBarType[] } }>(GET_TOP_HEADER_BAR);
+        return data.topHeaderBarCollection.items[0] || null;
     } catch (error) {
-        console.error('Error fetching link by name:', error);
+        console.error('Error fetching top header bar via GraphQL:', error);
         return null;
     }
 }
 
-export async function getAllLinks(): Promise<LinkEntry[]> {
+export async function getSlimFooter(): Promise<ContentfulSlimFooterType | null> {
     try {
-        const entries = await client.getEntries<LinkEntry>({
-            content_type: 'link',
-            include: 2 // Include nested entries (icon in this case)
-        });
-        return entries.items.map((entry): LinkEntry => {
-            return {
-                contentTypeId: entry.sys.id,
-                fields: entry.fields,
-                sys: entry.sys
-            }
-        })
+        const data = await graphqlClient.request<{ slimFooterCollection: { items: ContentfulSlimFooterType[] } }>(GET_SLIM_FOOTER);
+        return data.slimFooterCollection.items[0] || null;
     } catch (error) {
-        console.error('Error fetching links:', error);
-        return [];
+        console.error('Error fetching slim footer via GraphQL:', error);
+        return null;
+    }
+}
+export async function getFatFooter(): Promise<ContentfulFatFooterType | null> {
+    try {
+        const data = await graphqlClient.request<{ fatFooterCollection: { items: ContentfulFatFooterType[] } }>(GET_FAT_FOOTER);
+        return data.fatFooterCollection.items[0] || null;
+    } catch (error) {
+        console.error('Error fetching fat footer via GraphQL:', error);
+        return null;
     }
 }
 
-export async function getTopHeaderBar(): Promise<TopHeaderBarEntry> {
-
-    const entries = await client.getEntries<TopHeaderBarEntry>({
-        content_type: 'topHeaderBar',
-        limit: 1,
-        include: 3  // Include nested entries (links and their icons)
-    });
-
-    const entry = entries.items[0];
-    return {
-        contentTypeId: entry.sys.id,
-        fields: entry.fields,
-        sys: entry.sys
-    };
-
-}
-
-export async function getSlimFooter(): Promise<SlimFooterEntry> {
+export async function getNavbar(): Promise<ContentfulNavbarType | null> {
     try {
-        const entries = await client.getEntries<SlimFooterEntry>({
-            content_type: 'slimFooter',
-            limit: 1,
-            include: 2  // Include nested entries (links and their icons)
-        });
-
-        const entry = entries.items[0];
-        return {
-            contentTypeId: entry.sys.id,
-            fields: entry.fields,
-            sys: entry.sys
-        };
+        const data = await graphqlClient.request<{ navbarCollection: { items: ContentfulNavbarType[] } }>(GET_NAVBAR);
+        return data.navbarCollection.items[0] || null;
     } catch (error) {
-        console.error('Error fetching slim footer:', error);
-        throw error;
+        console.error('Error fetching navbar via GraphQL:', error);
+        return null;
     }
 }

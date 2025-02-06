@@ -1,13 +1,14 @@
-import React from "react";
-import { SlimFooterEntry } from "@/types/contentful";
+import { ContentfulSlimFooterType } from "@/types/contentful";
 import ContentfulLink from "./ContentfulLink";
 
-interface SlimFooterProps {
-  footer: SlimFooterEntry;
+interface ContentfulSlimFooterProps {
+  footer: ContentfulSlimFooterType;
 }
 
-export default function SlimFooter({ footer }: SlimFooterProps) {
-  const { copyrightText, trademarkText, poweredByLink } = footer.fields;
+export default function ContentfulSlimFooter({
+  footer,
+}: ContentfulSlimFooterProps) {
+  const { copyrightText, trademarkText, poweredByLink } = footer;
 
   return (
     <footer className="py-4 bg-white dark:bg-gray-900">
