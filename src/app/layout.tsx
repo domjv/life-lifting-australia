@@ -5,7 +5,7 @@ import "./globals.css";
 
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { getSlimFooter, getTopHeaderBar } from "@/lib/contentful";
+import { getFatFooter, getSlimFooter, getTopHeaderBar } from "@/lib/contentful";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +26,7 @@ export default async function RootLayout({
 }>) {
   const topHeaderBar = await getTopHeaderBar();
   const slimFooter = await getSlimFooter();
+  const fatFooter = await getFatFooter();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -33,7 +34,7 @@ export default async function RootLayout({
         <ThemeProvider attribute="class">
           <Navbar topHeaderBar={topHeaderBar} />
           <div>{children}</div>
-          <Footer slimFooter={slimFooter} />
+          <Footer slimFooter={slimFooter} fatFooter={fatFooter} />
         </ThemeProvider>
       </body>
     </html>

@@ -1,10 +1,9 @@
-"use client";
 import Link from "next/link";
-import { LinkEntry } from "@/types/contentful";
+import { ContentfulLinkEntry } from "@/types/contentful";
 import ContentfulIcon from "./ContentfulIcon";
 
 interface ContentfulLinkProps {
-  link: LinkEntry;
+  link: ContentfulLinkEntry;
   className?: string;
 }
 
@@ -28,7 +27,7 @@ export default function ContentfulLink({
       rel={openInNewTab ? "noopener noreferrer" : undefined}
       className={`inline-flex items-center gap-2 ${className}`}
     >
-      {iconVisibility && icon && <ContentfulIcon {...icon} />}
+      {iconVisibility && icon && <ContentfulIcon icon={icon} />}
       {displayTextVisibility && <span>{displayText}</span>}
     </Link>
   );

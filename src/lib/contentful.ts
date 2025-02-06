@@ -1,16 +1,16 @@
 import { createClient, Link } from 'contentful'
-import { LinkEntry, TopHeaderBarEntry, SlimFooterEntry } from '@/types/contentful'
+import { ContentfulLinkEntry, ContentfulTopHeaderBarEntry, ContentfulSlimFooterEntry, ContentfulFatFooterEntry } from '@/types/contentful'
 
 const client = createClient({
-    space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!,
+    space: process.env.CONTENTFUL_SPACE_ID!,
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
 })
 
 export default client;
 
-export async function getLink(id: string): Promise<LinkEntry | null> {
+export async function getLink(id: string): Promise<ContentfulLinkEntry | null> {
     try {
-        const entry = await client.getEntry<LinkEntry>(id, {
+        const entry = await client.getEntry<ContentfulLinkEntry>(id, {
             include: 2 // Include nested entries (icon in this case)
         });
         return {
@@ -24,9 +24,9 @@ export async function getLink(id: string): Promise<LinkEntry | null> {
     }
 }
 
-export async function getLinkByName(name: string): Promise<LinkEntry | null> {
+export async function getLinkByName(name: string): Promise<ContentfulLinkEntry | null> {
     try {
-        const entries = await client.getEntries<LinkEntry>({
+        const entries = await client.getEntries<ContentfulLinkEntry>({
             content_type: 'link',
             include: 2,
             limit: 1
@@ -44,13 +44,13 @@ export async function getLinkByName(name: string): Promise<LinkEntry | null> {
     }
 }
 
-export async function getAllLinks(): Promise<LinkEntry[]> {
+export async function getAllLinks(): Promise<ContentfulLinkEntry[]> {
     try {
-        const entries = await client.getEntries<LinkEntry>({
+        const entries = await client.getEntries<ContentfulLinkEntry>({
             content_type: 'link',
             include: 2 // Include nested entries (icon in this case)
         });
-        return entries.items.map((entry): LinkEntry => {
+        return entries.items.map((entry): ContentfulLinkEntry => {
             return {
                 contentTypeId: 'link',
                 fields: entry.fields,
@@ -63,9 +63,9 @@ export async function getAllLinks(): Promise<LinkEntry[]> {
     }
 }
 
-export async function getTopHeaderBar(): Promise<TopHeaderBarEntry> {
+export async function getTopHeaderBar(): Promise<ContentfulTopHeaderBarEntry> {
 
-    const entries = await client.getEntries<TopHeaderBarEntry>({
+    const entries = await client.getEntries<ContentfulTopHeaderBarEntry>({
         content_type: 'topHeaderBar',
         limit: 1,
         include: 3  // Include nested entries (links and their icons)
@@ -80,9 +80,9 @@ export async function getTopHeaderBar(): Promise<TopHeaderBarEntry> {
 
 }
 
-export async function getSlimFooter(): Promise<SlimFooterEntry> {
+export async function getSlimFooter(): Promise<ContentfulSlimFooterEntry> {
     try {
-        const entries = await client.getEntries<SlimFooterEntry>({
+        const entries = await client.getEntries<ContentfulSlimFooterEntry>({
             content_type: 'slimFooter',
             limit: 1,
             include: 2  // Include nested entries (links and their icons)
@@ -96,6 +96,26 @@ export async function getSlimFooter(): Promise<SlimFooterEntry> {
         };
     } catch (error) {
         console.error('Error fetching slim footer:', error);
+        throw error;
+    }
+}
+
+export async function getFatFooter(): Promise<ContentfulFatFooterEntry> {
+    try {
+        const entries = await client.getEntries<ContentfulFatFooterEntry>({
+            content_type: 'fatFooter',
+            limit: 1,
+            include: 3
+        });
+
+        const entry = entries.items[0];
+        return {
+            contentTypeId: 'fatFooter',
+            fields: entry.fields,
+            sys: entry.sys
+        };
+    } catch (error) {
+        console.error('Error fetching fat footer:', error);
         throw error;
     }
 }

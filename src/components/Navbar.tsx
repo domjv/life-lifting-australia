@@ -4,7 +4,10 @@ import ThemeChanger from "./DarkSwitch";
 import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
 import { getTopHeaderBar } from "@/lib/contentful";
-import { TopHeaderBar, TopHeaderBarEntry } from "@/types/contentful";
+import {
+  ContentfulTopHeaderBarType,
+  ContentfulTopHeaderBarEntry,
+} from "@/types/contentful";
 import ContentfulLink from "./ContentfulLink";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -12,7 +15,7 @@ import { useEffect, useState } from "react";
 export const Navbar = ({
   topHeaderBar,
 }: {
-  topHeaderBar: TopHeaderBarEntry;
+  topHeaderBar: ContentfulTopHeaderBarEntry;
 }) => {
   const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
 

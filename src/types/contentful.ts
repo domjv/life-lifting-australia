@@ -1,102 +1,97 @@
-export interface Icon {
+export interface ContentfulIconType {
     title: string;
     iconName: string;
     iconPrefix: string;
 }
 
-export interface IconEntry {
+export interface ContentfulIconEntry {
     sys: {
         id: string;
     };
-    fields: Icon;
+    fields: ContentfulIconType;
     contentTypeId: 'icon';
 }
 
-export interface IconCollection {
-    items: IconEntry[];
-}
-
-export interface ContentfulLink {
+export interface ContentfulLinkType {
     name: string;
     displayText: string;
     displayTextVisibility: boolean;
     hyperlink: string;
     openInNewTab: boolean;
     iconVisibility: boolean;
-    icon?: {
-        sys: {
-            id: string;
-        };
-        fields: Icon;
-        contentTypeId: 'icon';
-    };
+    icon?: ContentfulIconEntry;
 }
 
-export interface LinkEntry {
+export interface ContentfulLinkEntry {
     sys: {
         id: string;
     };
-    fields: ContentfulLink;
+    fields: ContentfulLinkType;
     contentTypeId: 'link';
 }
 
 export interface LinkCollection {
-    items: LinkEntry[];
+    items: ContentfulLinkEntry[];
 }
 
-export interface TopHeaderBar {
+export interface ContentfulTopHeaderBarType {
     title: string;
     shouldBeDisplayed: boolean;
     stickyToTop: boolean;
-    contactEmail?: {
-        sys: {
-            id: string;
-        };
-        fields: ContentfulLink;
-        contentTypeId: 'link';
-    };
-    contactPhoneNumber?: {
-        sys: {
-            id: string;
-        };
-        fields: ContentfulLink;
-        contentTypeId: 'link';
-    };
-    socialMediaLinks?: Array<{
-        sys: {
-            id: string;
-        };
-        fields: ContentfulLink;
-        contentTypeId: 'link';
-    }>;
+    contactEmail?: ContentfulLinkEntry;
+    contactPhoneNumber?: ContentfulLinkEntry;
+    socialMediaLinks?: ContentfulLinkEntry[];
 }
 
-export interface TopHeaderBarEntry {
+export interface ContentfulTopHeaderBarEntry {
     sys: {
         id: string;
     };
-    fields: TopHeaderBar;
+    fields: ContentfulTopHeaderBarType;
     contentTypeId: string;
 }
 
-export interface SlimFooter {
+export interface ContentfulSlimFooterType {
     title?: string;
     copyrightText?: string;
     trademarkText?: string;
-    poweredByLink?: {
-        sys: {
-            id: string;
-        };
-        fields: ContentfulLink;
-        contentTypeId: 'link';
-    };
+    poweredByLink?: ContentfulLinkEntry;
 }
 
-export interface SlimFooterEntry {
+export interface ContentfulSlimFooterEntry {
     sys: {
         id: string;
     };
-    fields: SlimFooter;
+    fields: ContentfulSlimFooterType;
     contentTypeId: 'slimFooter';
 }
 
+export interface ContentfulLinkListType {
+    title: string;
+    heading: string;
+    listOfLinks: ContentfulLinkEntry[];
+}
+
+export interface ContentfulLinkListEntry {
+    sys: {
+        id: string;
+    };
+    fields: ContentfulLinkListType;
+    contentTypeId: 'linkList';
+}
+
+
+export interface ContentfulFatFooterType {
+    title: string;
+    servicesSection: ContentfulLinkListEntry;
+    aboutSection: ContentfulLinkListEntry;
+    socialMediaSection: ContentfulLinkListEntry;
+}
+
+export interface ContentfulFatFooterEntry {
+    sys: {
+        id: string;
+    };
+    fields: ContentfulFatFooterType;
+    contentTypeId: 'fatFooter';
+}
