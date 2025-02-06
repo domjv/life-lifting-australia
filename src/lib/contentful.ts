@@ -1,6 +1,6 @@
-import { ContentfulLinkType, ContentfulTopHeaderBarType, ContentfulFatFooterType, ContentfulNavbarType, ContentfulSlimFooterType } from '@/types/contentful';
+import { ContentfulLinkType, ContentfulTopHeaderBarType, ContentfulFatFooterType, ContentfulNavbarType, ContentfulSlimFooterType, ContentfulHeroSectionType } from '@/types/contentful';
 import { graphqlClient } from './graphql';
-import { GET_LINK, GET_FAT_FOOTER, GET_NAVBAR, GET_SLIM_FOOTER, GET_TOP_HEADER_BAR } from './queries';
+import { GET_LINK, GET_FAT_FOOTER, GET_NAVBAR, GET_SLIM_FOOTER, GET_TOP_HEADER_BAR, GET_HERO_SECTION } from './queries';
 
 export async function getLink(id: string): Promise<ContentfulLinkType | null> {
     try {
@@ -48,6 +48,16 @@ export async function getNavbar(): Promise<ContentfulNavbarType | null> {
         return data.navbarCollection.items[0] || null;
     } catch (error) {
         console.error('Error fetching navbar via GraphQL:', error);
+        return null;
+    }
+}
+
+export async function getHeroSection(): Promise<ContentfulHeroSectionType | null> {
+    try {
+        const data = await graphqlClient.request<{ heroSectionCollection: { items: ContentfulHeroSectionType[] } }>(GET_HERO_SECTION);
+        return data.heroSectionCollection.items[0] || null;
+    } catch (error) {
+        console.error('Error fetching heroSection via GraphQL:', error);
         return null;
     }
 }

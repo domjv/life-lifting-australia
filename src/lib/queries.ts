@@ -1,4 +1,4 @@
-import { IMAGE, LINK, LINK_LIST, SYS } from '@/types/graphql';
+import { HEADING_AND_DESCRIPTION, IMAGE, LINK, LINK_LIST, SYS } from '@/types/graphql';
 import { gql } from 'graphql-request';
 
 export const GET_LINK = gql`
@@ -73,3 +73,19 @@ query GetNavbar {
 }
 `;
 
+export const GET_HERO_SECTION = gql`
+query GetHeroSection {
+heroSectionCollection(limit: 1) {
+items {
+${SYS}
+      title
+      headingAndDescription ${HEADING_AND_DESCRIPTION}
+        backgroundImage ${IMAGE}
+      buttonsCollection {
+        items ${LINK}
+      }
+    }
+  }
+}
+
+`;

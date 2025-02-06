@@ -23,6 +23,8 @@ ${SYS}
   hyperlink
   openInNewTab
   iconVisibility
+  displayAsButton
+  isDarkButton
   icon ${ICON}
 }
 `;
@@ -45,3 +47,19 @@ ${SYS}
     description
 }
 `;
+
+export const RICH_TEXT = `
+{
+          json
+          }
+`
+
+export const HEADING_AND_DESCRIPTION = `
+{
+${SYS}
+        title
+        heading
+        subHeading
+        description ${RICH_TEXT}
+}
+`

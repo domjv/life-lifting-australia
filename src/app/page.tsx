@@ -7,11 +7,16 @@ import { Testimonials } from "@/components/Testimonials";
 import { Faq } from "@/components/Faq";
 
 import { benefitOne, benefitTwo } from "@/components/data";
+import { getHeroSection } from "@/lib/contentful";
 
 export default async function Home() {
+  const heroSection = await getHeroSection();
+  if (!heroSection) {
+    return <></>;
+  }
   return (
     <Container>
-      <Hero />
+      <Hero heroSection={heroSection} />
       <SectionTitle
         preTitle="Nextly Benefits"
         title=" Why should you use this landing page"
