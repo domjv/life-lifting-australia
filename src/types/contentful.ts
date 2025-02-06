@@ -107,6 +107,7 @@ export interface ContentfulHeroSectionType {
     headingAndDescription: ContentfulHeadingAndDescriptionType;
     buttonsCollection: ContentfulLinkCollection;
     backgroundImage: ContentfulImageType;
+    sideImage: ContentfulImageType;
     sys: ContentfulSys;
 }
 

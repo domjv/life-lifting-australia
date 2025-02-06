@@ -79,6 +79,7 @@ heroSectionCollection(limit: 1) {
 items {
 ${SYS}
       title
+      sideImage ${IMAGE}
       headingAndDescription ${HEADING_AND_DESCRIPTION}
         backgroundImage ${IMAGE}
       buttonsCollection {

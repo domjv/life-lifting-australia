@@ -14,9 +14,15 @@ interface ContentfulNavbarProps {
 export default function ContentfulNavbar({ navbar }: ContentfulNavbarProps) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   if (!mounted) {
@@ -28,99 +34,124 @@ export default function ContentfulNavbar({ navbar }: ContentfulNavbarProps) {
     navbar;
 
   return (
-    <nav className="container relative max-w-full flex items-center justify-between p-2 lg:justify-between xl:px-1 bg-white dark:bg-trueGray-900 shadow-md">
-      <Link href={logoLink.hyperlink}>
-        <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
-          <span>
-            {currentTheme === "dark" ? (
-              <Image
-                src={`${logoDark.url}`}
-                alt={logoDark.description}
-                title={logoDark.description}
-                width={110}
-                height={32}
-              />
-            ) : (
-              <Image
-                src={`${logoLight.url}`}
-                alt={logoLight.description}
-                title={logoDark.description}
-                width={110}
-                height={32}
-              />
-            )}
-          </span>
-        </span>
-      </Link>
-
-      <div className="gap-3 nav__item mr-2 lg:flex ml-auto lg:ml-0 lg:order-2">
-        <ThemeChanger helperText={navbar.helperTextForDarkLightModeSwitch} />
-        <div className="hidden mr-3 lg:flex nav__item">
-          <ContentfulLink
-            link={specialNavbarItem}
-            className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5"
-          />
-        </div>
-      </div>
-
-      <Disclosure>
-        {({ open }) => (
-          <>
-            <Disclosure.Button
-              aria-label="Toggle Menu"
-              className="px-2 py-1 text-gray-500 rounded-md lg:hidden hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:text-gray-300 dark:focus:bg-trueGray-700"
-            >
-              <svg
-                className="w-6 h-6 fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                {open ? (
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
-                  />
-                ) : (
-                  <path
-                    fillRule="evenodd"
-                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-                  />
-                )}
-              </svg>
-            </Disclosure.Button>
-
-            <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
-              <>
-                {navbarItems.listOfLinksCollection.items.map((link) => (
-                  <ContentfulLink
-                    key={link.name}
-                    link={link}
-                    className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 dark:focus:bg-gray-800 focus:outline-none"
-                  />
-                ))}
-                <ContentfulLink
-                  link={specialNavbarItem}
-                  className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5"
+    <nav
+      className={`
+      sticky top-0 w-full z-50 transition-all duration-200
+      ${
+        isScrolled
+          ? "shadow-lg bg-white/80 dark:bg-gray-950/80 backdrop-blur-lg"
+          : "bg-white dark:bg-gray-950"
+      }
+    `}
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <Link href={logoLink.hyperlink} className="flex-shrink-0">
+            <span className="block h-8 w-auto">
+              {currentTheme === "dark" ? (
+                <Image
+                  src={`${logoDark.url}`}
+                  alt={logoDark.description}
+                  title={logoDark.description}
+                  width={110}
+                  height={32}
+                  className="h-8 w-auto"
                 />
-              </>
-            </Disclosure.Panel>
-          </>
-        )}
-      </Disclosure>
+              ) : (
+                <Image
+                  src={`${logoLight.url}`}
+                  alt={logoLight.description}
+                  title={logoDark.description}
+                  width={110}
+                  height={32}
+                  className="h-8 w-auto"
+                />
+              )}
+            </span>
+          </Link>
 
-      {/* Desktop menu */}
-      <div className="hidden text-center lg:flex lg:items-center">
-        <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
-          {navbarItems.listOfLinksCollection.items.map((link) => (
-            <li className="mr-3 nav__item" key={link.name}>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex lg:items-center lg:gap-x-8">
+            {navbarItems.listOfLinksCollection.items.map((link) => (
               <ContentfulLink
+                key={link.name}
                 link={link}
-                className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
+                className="text-lg font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
               />
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+
+          {/* Right side items */}
+          <div className="flex items-center gap-4">
+            <ThemeChanger
+              helperText={navbar.helperTextForDarkLightModeSwitch}
+            />
+
+            <div className="hidden lg:block">
+              <ContentfulLink
+                link={specialNavbarItem}
+                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
+              />
+            </div>
+
+            {/* Mobile menu button */}
+            <Disclosure>
+              {({ open }) => (
+                <>
+                  <Disclosure.Button className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none">
+                    <span className="sr-only">Open main menu</span>
+                    <svg
+                      className={`${open ? "hidden" : "block"} h-6 w-6`}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 6h16M4 12h16M4 18h16"
+                      />
+                    </svg>
+                    <svg
+                      className={`${open ? "block" : "hidden"} h-6 w-6`}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Disclosure.Button>
+
+                  {/* Mobile menu panel */}
+                  <Disclosure.Panel className="lg:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-950 shadow-lg">
+                    <div className="px-4 pt-2 pb-3 space-y-1">
+                      {navbarItems.listOfLinksCollection.items.map((link) => (
+                        <ContentfulLink
+                          key={link.name}
+                          link={link}
+                          className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                        />
+                      ))}
+                      <ContentfulLink
+                        link={specialNavbarItem}
+                        className="block w-full text-center px-4 py-2 mt-4 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+                      />
+                    </div>
+                  </Disclosure.Panel>
+                </>
+              )}
+            </Disclosure>
+          </div>
+        </div>
       </div>
     </nav>
   );
