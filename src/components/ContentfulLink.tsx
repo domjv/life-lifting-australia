@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ContentfulLinkEntry } from "@/types/contentful";
+import { ContentfulLinkType } from "@/types/contentful";
 import ContentfulIcon from "./ContentfulIcon";
 
 interface ContentfulLinkProps {
-  link: ContentfulLinkEntry;
+  link: ContentfulLinkType;
   className?: string;
 }
 
@@ -18,7 +18,7 @@ export default function ContentfulLink({
     openInNewTab,
     iconVisibility,
     icon,
-  } = link.fields;
+  } = link;
 
   return (
     <Link

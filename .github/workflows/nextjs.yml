@@ -30,7 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-      CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+      CONTENTFUL_CONTENT_DELIVERY_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_CONTENT_DELIVERY_ACCESS_TOKEN }}
+      CONTENTFUL_ENVIRONMENT: ${{ secrets.CONTENTFUL_ENVIRONMENT }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4

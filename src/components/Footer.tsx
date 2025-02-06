@@ -1,8 +1,8 @@
 import React from "react";
 import { Container } from "@/components/Container";
 import {
-  ContentfulFatFooterEntry,
-  ContentfulSlimFooterEntry,
+  ContentfulFatFooterType,
+  ContentfulSlimFooterType,
 } from "@/types/contentful";
 import ContentfulSlimFooter from "./ContentfulSlimFooter";
 import ContentfulFatFooter from "./ContentfulFatFooter";
@@ -11,8 +11,8 @@ export function Footer({
   slimFooter,
   fatFooter,
 }: {
-  slimFooter: ContentfulSlimFooterEntry;
-  fatFooter: ContentfulFatFooterEntry;
+  slimFooter: ContentfulSlimFooterType;
+  fatFooter: ContentfulFatFooterType;
 }) {
   return (
     <div className="relative">

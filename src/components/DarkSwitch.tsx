@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
-const ThemeChanger = () => {
+const ThemeChanger = ({ helperText }: { helperText: string }) => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -11,7 +11,7 @@ const ThemeChanger = () => {
   if (!mounted) return null;
 
   return (
-    <div className="flex items-center order-last ">
+    <div className="flex items-center order-last" title={helperText}>
       {theme === "dark" ? (
         <button
           onClick={() => setTheme("light")}

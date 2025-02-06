@@ -1,15 +1,14 @@
+import { Asset } from "contentful";
+
+export interface ContentfulSys {
+    id: string;
+}
+
 export interface ContentfulIconType {
     title: string;
     iconName: string;
     iconPrefix: string;
-}
-
-export interface ContentfulIconEntry {
-    sys: {
-        id: string;
-    };
-    fields: ContentfulIconType;
-    contentTypeId: 'icon';
+    sys: ContentfulSys;
 }
 
 export interface ContentfulLinkType {
@@ -19,79 +18,66 @@ export interface ContentfulLinkType {
     hyperlink: string;
     openInNewTab: boolean;
     iconVisibility: boolean;
-    icon?: ContentfulIconEntry;
+    icon?: ContentfulIconType;
+    sys: ContentfulSys;
 }
 
-export interface ContentfulLinkEntry {
-    sys: {
-        id: string;
-    };
-    fields: ContentfulLinkType;
-    contentTypeId: 'link';
-}
-
-export interface LinkCollection {
-    items: ContentfulLinkEntry[];
+export interface ContentfulLinkCollection {
+    items: ContentfulLinkType[];
 }
 
 export interface ContentfulTopHeaderBarType {
     title: string;
     shouldBeDisplayed: boolean;
     stickyToTop: boolean;
-    contactEmail?: ContentfulLinkEntry;
-    contactPhoneNumber?: ContentfulLinkEntry;
-    socialMediaLinks?: ContentfulLinkEntry[];
+    contactEmail?: ContentfulLinkType;
+    contactPhoneNumber?: ContentfulLinkType;
+    socialMediaLinksCollection?: ContentfulLinkCollection;
 }
 
-export interface ContentfulTopHeaderBarEntry {
-    sys: {
-        id: string;
-    };
-    fields: ContentfulTopHeaderBarType;
-    contentTypeId: string;
-}
 
 export interface ContentfulSlimFooterType {
     title?: string;
     copyrightText?: string;
     trademarkText?: string;
-    poweredByLink?: ContentfulLinkEntry;
-}
-
-export interface ContentfulSlimFooterEntry {
-    sys: {
-        id: string;
-    };
-    fields: ContentfulSlimFooterType;
-    contentTypeId: 'slimFooter';
+    poweredByLink?: ContentfulLinkType;
+    sys: ContentfulSys;
 }
 
 export interface ContentfulLinkListType {
     title: string;
     heading: string;
-    listOfLinks: ContentfulLinkEntry[];
-}
-
-export interface ContentfulLinkListEntry {
-    sys: {
-        id: string;
-    };
-    fields: ContentfulLinkListType;
-    contentTypeId: 'linkList';
+    listOfLinksCollection: ContentfulLinkCollection;
+    sys: ContentfulSys;
 }
 
 
 export interface ContentfulFatFooterType {
     title: string;
-    servicesSection: ContentfulLinkListEntry;
-    aboutSection: ContentfulLinkListEntry;
-    socialMediaSection: ContentfulLinkListEntry;
+    servicesSection: ContentfulLinkListType;
+    aboutSection: ContentfulLinkListType;
+    socialMediaSection: ContentfulLinkListType;
+    sys: ContentfulSys;
 }
 
-export interface ContentfulFatFooterEntry {
-    sys: {
-        id: string;
+
+export interface ContentfulNavbarType {
+    title: string;
+    stickyToTop: boolean;
+    logoLight: {
+        url: string;
+        sys: ContentfulSys;
+        description: string;
     };
-    fields: ContentfulFatFooterType;
-    contentTypeId: 'fatFooter';
+    logoDark: {
+        url: string;
+        sys: ContentfulSys;
+        description: string;
+    };
+    logoLink: ContentfulLinkType;
+    navbarItems: ContentfulLinkListType;
+    specialNavbarItem: ContentfulLinkType;
+    links: ContentfulLinkCollection;
+    helperTextForDarkLightModeSwitch: string;
+    sys: ContentfulSys;
 }

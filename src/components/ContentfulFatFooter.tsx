@@ -1,16 +1,16 @@
-import { ContentfulFatFooterEntry } from "@/types/contentful";
+import { ContentfulFatFooterType } from "@/types/contentful";
 import ContentfulLinkList from "./ContentfulLinkList";
 import Image from "next/image";
 import Link from "next/link";
 
 interface ContentfulFatFooterProps {
-  footer: ContentfulFatFooterEntry;
+  footer: ContentfulFatFooterType;
 }
 
 export default function ContentfulFatFooter({
   footer,
 }: ContentfulFatFooterProps) {
-  const { servicesSection, aboutSection, socialMediaSection } = footer.fields;
+  const { servicesSection, aboutSection, socialMediaSection } = footer;
 
   return (
     <div className="grid max-w-screen-xl grid-cols-1 gap-10 pt-10 mx-auto mt-5 border-t border-gray-100 dark:border-trueGray-700 lg:grid-cols-5">
