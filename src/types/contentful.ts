@@ -2,6 +2,8 @@ import { Asset } from "contentful";
 
 export interface ContentfulSys {
     id: string;
+    spaceId: string;
+    environmentId: string;
 }
 
 export interface ContentfulIconType {
@@ -60,20 +62,17 @@ export interface ContentfulFatFooterType {
     sys: ContentfulSys;
 }
 
+export interface ContentfulImage {
+    url: string;
+    sys: ContentfulSys;
+    description: string;
+}
 
 export interface ContentfulNavbarType {
     title: string;
     stickyToTop: boolean;
-    logoLight: {
-        url: string;
-        sys: ContentfulSys;
-        description: string;
-    };
-    logoDark: {
-        url: string;
-        sys: ContentfulSys;
-        description: string;
-    };
+    logoLight: ContentfulImage;
+    logoDark: ContentfulImage;
     logoLink: ContentfulLinkType;
     navbarItems: ContentfulLinkListType;
     specialNavbarItem: ContentfulLinkType;
