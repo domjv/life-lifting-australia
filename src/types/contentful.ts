@@ -57,6 +57,7 @@ export interface ContentfulLinkListType {
 export interface ContentfulFatFooterType {
     title: string;
     servicesSection: ContentfulLinkListType;
+    servicesSection2: ContentfulLinkListType;
     aboutSection: ContentfulLinkListType;
     socialMediaSection: ContentfulLinkListType;
     sys: ContentfulSys;
@@ -165,7 +166,7 @@ export interface ContentfulPageReferenceType {
 
 export interface ContentfulPageType {
     title: string;
-    url: string;
+    slug: string;
     heroSection?: ContentfulHeroSectionType;
     sectionWithImagesHeading?: ContentfulHeadingAndDescriptionType;
     sectionsWithImagesCollection?: {

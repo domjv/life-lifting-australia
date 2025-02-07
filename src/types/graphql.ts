@@ -104,7 +104,7 @@ export const PAGE_WITH_REFERENCES = `
 {
 ${SYS}
     title
-    url
+    slug
     heroSection {
       sys { id }
     }

@@ -41,6 +41,7 @@ export async function getSlimFooter(): Promise<ContentfulSlimFooterType | null> 
         const data = await graphqlClient.request<{
             slimFooterCollection: { items: ContentfulSlimFooterType[] }
         }>(GET_SLIM_FOOTER);
+        console.log(GET_SLIM_FOOTER);
         return data.slimFooterCollection.items[0] || null;
     } catch (error) {
         console.error('Error fetching slim footer via GraphQL:', error);
@@ -71,11 +72,11 @@ export async function getNavbar(): Promise<ContentfulNavbarType | null> {
 }
 
 
-export async function getPageContent(url: string) {
+export async function getPageContent(slug: string) {
     try {
         const page = await graphqlClient.request<{ pageCollection: { items: ContentfulPageReferenceType[] } }>(
             GET_PAGE_BY_URL,
-            {url}
+            {slug}
         );
 
         const pageData = page.pageCollection.items[0];
@@ -122,7 +123,7 @@ export async function getPageContent(url: string) {
         const pageContent: ContentfulPageType = {
             sys: page.pageCollection.items[0].sys,
             title: page.pageCollection.items[0].title,
-            url: page.pageCollection.items[0].url,
+            slug: page.pageCollection.items[0].slug,
             heroSection: heroSection!,
             miscellaneousCollection: {items: miscellaneous!},
             sectionsWithImagesCollection: {

@@ -49,6 +49,7 @@ query GetFatFooter {
     ${SYS}
       title
       servicesSection ${LINK_LIST}
+      servicesSection2 ${LINK_LIST}
       aboutSection ${LINK_LIST}
       socialMediaSection ${LINK_LIST}
     }
@@ -110,8 +111,8 @@ export const GET_FAQ = gql`
 `;
 
 export const GET_PAGE_BY_URL = gql`
-    query GetPageByUrl($url: String!) {
-        pageCollection(limit: 1, where: { url: $url }) {
+    query GetPageBySlug($slug: String!) {
+        pageCollection(limit: 1, where: { slug: $slug }) {
             items ${PAGE_WITH_REFERENCES}
         }
     }

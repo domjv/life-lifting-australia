@@ -9,7 +9,7 @@ interface ContentfulFatFooterProps {
 export default function ContentfulFatFooter({
                                                 footer,
                                             }: ContentfulFatFooterProps) {
-    const {servicesSection, aboutSection, socialMediaSection} = footer;
+    const {servicesSection, aboutSection, socialMediaSection, servicesSection2} = footer;
 
     return (
         <div
@@ -31,7 +31,12 @@ export default function ContentfulFatFooter({
                     className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0"
                 />
             </div>
-
+            <div>
+                <ContentfulLinkList
+                    linkList={servicesSection2}
+                    className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0"
+                />
+            </div>
             <div>
                 <ContentfulLinkList
                     linkList={aboutSection}
