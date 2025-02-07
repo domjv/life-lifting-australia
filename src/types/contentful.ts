@@ -144,7 +144,7 @@ export interface ContentfulFrequentlyAskedQuestionType {
 
 export interface ContentfulPageReferenceType {
     title: string;
-    url: string;
+    slug: string;
     heroSection?: {
         sys: { id: string };
     };
