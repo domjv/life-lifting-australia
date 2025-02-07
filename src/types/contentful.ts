@@ -115,8 +115,8 @@ export interface ContentfulFrequentlyAskedQuestionType {
     title: string;
     heading: ContentfulHeadingAndDescriptionType;
     questionsCollection: {
-        items: ContentfulFatFooterType
+        items: ContentfulHeadingAndDescriptionType[];
     };
     caption: string;
-
+    sys: ContentfulSys;
 }

@@ -1,6 +1,6 @@
-import { ContentfulLinkType, ContentfulTopHeaderBarType, ContentfulFatFooterType, ContentfulNavbarType, ContentfulSlimFooterType, ContentfulHeroSectionType } from '@/types/contentful';
+import { ContentfulLinkType, ContentfulTopHeaderBarType, ContentfulFatFooterType, ContentfulNavbarType, ContentfulSlimFooterType, ContentfulHeroSectionType, ContentfulFrequentlyAskedQuestionType } from '@/types/contentful';
 import { graphqlClient } from './graphql';
-import { GET_LINK, GET_FAT_FOOTER, GET_NAVBAR, GET_SLIM_FOOTER, GET_TOP_HEADER_BAR, GET_HERO_SECTION } from './queries';
+import { GET_LINK, GET_FAT_FOOTER, GET_NAVBAR, GET_SLIM_FOOTER, GET_TOP_HEADER_BAR, GET_HERO_SECTION, GET_FREQUENTLY_ASKED_QUESTIONS } from './queries';
 
 export async function getLink(id: string): Promise<ContentfulLinkType | null> {
     try {
@@ -61,3 +61,15 @@ export async function getHeroSection(): Promise<ContentfulHeroSectionType | null
         return null;
     }
 }
+
+
+export async function getFrequentlyAskedQuestion(): Promise<ContentfulFrequentlyAskedQuestionType | null> {
+    try {
+        const data = await graphqlClient.request<{ frequentlyAskedQuestionsCollection: { items: ContentfulFrequentlyAskedQuestionType[] } }>(GET_FREQUENTLY_ASKED_QUESTIONS);
+        return data.frequentlyAskedQuestionsCollection.items[0] || null;
+    } catch (error) {
+        console.error('Error fetching frequentlyAskedQuestion via GraphQL:', error);
+        return null;
+    }
+}
+

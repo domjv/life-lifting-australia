@@ -88,5 +88,21 @@ ${SYS}
     }
   }
 }
+`;
 
+
+export const GET_FREQUENTLY_ASKED_QUESTIONS = gql`
+query GetFrequentlyAskedQuestion {
+  frequentlyAskedQuestionsCollection(limit: 1) {
+    items {
+      ${SYS}
+      title
+      heading ${HEADING_AND_DESCRIPTION} 
+      caption
+      questionsCollection {
+        items ${HEADING_AND_DESCRIPTION}
+      }
+    }
+  }
+}
 `;

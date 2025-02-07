@@ -8,8 +8,6 @@ export const Hero = ({
 }: {
   heroSection: ContentfulHeroSectionType;
 }) => {
-  console.log(heroSection);
-
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Background Image with Blur Overlay */}

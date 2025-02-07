@@ -7,11 +7,12 @@ import { Testimonials } from "@/components/Testimonials";
 import { Faq } from "@/components/Faq";
 
 import { benefitOne, benefitTwo } from "@/components/data";
-import { getHeroSection } from "@/lib/contentful";
+import { getFrequentlyAskedQuestion, getHeroSection } from "@/lib/contentful";
 
 export default async function Home() {
   const heroSection = await getHeroSection();
-  if (!heroSection) {
+  const faqs = await getFrequentlyAskedQuestion();
+  if (!heroSection || !faqs) {
     return <></>;
   }
   return (
@@ -51,12 +52,11 @@ export default async function Home() {
 
         <Testimonials />
 
-        <SectionTitle preTitle="FAQ" title="Frequently Asked Questions">
-          Answer your customers possible questions here, it will increase the
-          conversion rate as well as support or chat requests.
+        <SectionTitle preTitle={faqs.caption} title={faqs.heading.heading}>
+          {faqs.heading.subHeading}
         </SectionTitle>
 
-        <Faq />
+        <Faq questions={faqs.questionsCollection.items} />
       </Container>
     </>
   );
