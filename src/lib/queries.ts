@@ -1,11 +1,15 @@
-import { HEADING_AND_DESCRIPTION, IMAGE, LINK, LINK_LIST, SYS } from '@/types/graphql';
-import { gql } from 'graphql-request';
+import {
+    HEADING_AND_DESCRIPTION,
+    HERO_SECTION,
+    IMAGE,
+    LINK,
+    LINK_LIST,
+    PAGE_WITH_REFERENCES,
+    SECTION_WITH_IMAGE,
+    SYS
+} from '@/types/graphql';
+import {gql} from 'graphql-request';
 
-export const GET_LINK = gql`
-    query GetLink($id: String!) {
-        link(id: $id) ${LINK}
-    }
-`;
 
 export const GET_TOP_HEADER_BAR = gql`
 query GetTopHeaderBar {
@@ -74,27 +78,26 @@ query GetNavbar {
 `;
 
 export const GET_HERO_SECTION = gql`
-query GetHeroSection {
-heroSectionCollection(limit: 1) {
-items {
-${SYS}
-      title
-      sideImage ${IMAGE}
-      headingAndDescription ${HEADING_AND_DESCRIPTION}
-        backgroundImage ${IMAGE}
-      buttonsCollection {
-        items ${LINK}
-      }
+    query GetHeroSection($id: String!) {
+        heroSection(id: $id) ${HERO_SECTION}
     }
-  }
-}
 `;
 
+export const GET_HEADING_AND_DESCRIPTION = gql`
+    query GetHeadingAndDescription($id: String!) {
+        headingAndDescription(id: $id) ${HEADING_AND_DESCRIPTION}
+    }
+`;
 
-export const GET_FREQUENTLY_ASKED_QUESTIONS = gql`
-query GetFrequentlyAskedQuestion {
-  frequentlyAskedQuestionsCollection(limit: 1) {
-    items {
+export const GET_SECTION_WITH_IMAGE = gql`
+    query GetSectionWithImage($id: String!) {
+        sectionWithImage(id: $id) ${SECTION_WITH_IMAGE}
+    }
+`;
+
+export const GET_FAQ = gql`
+    query GetFrequentlyAskedQuestion ($id: String!) {
+    frequentlyAskedQuestions(id: $id){
       ${SYS}
       title
       heading ${HEADING_AND_DESCRIPTION} 
@@ -102,7 +105,14 @@ query GetFrequentlyAskedQuestion {
       questionsCollection {
         items ${HEADING_AND_DESCRIPTION}
       }
-    }
   }
 }
+`;
+
+export const GET_PAGE_BY_URL = gql`
+    query GetPageByUrl($url: String!) {
+        pageCollection(limit: 1, where: { url: $url }) {
+            items ${PAGE_WITH_REFERENCES}
+        }
+    }
 `;

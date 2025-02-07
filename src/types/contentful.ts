@@ -1,5 +1,3 @@
-import { Asset } from "contentful";
-
 export interface ContentfulSys {
     id: string;
     spaceId: string;
@@ -86,13 +84,15 @@ export interface ContentfulNavbarType {
 export interface ContentfulHeadingAndDescriptionType {
     title: string;
     heading: string;
-    headingAlignment: string;
-    headingSize: string;
-    subHeading: string;
-    description: {
+    headingAlignment?: string;
+    headingSize?: string;
+    subHeading?: string;
+    description?: {
         json: {
             content: [
-                value: string
+                {
+                    value: string;
+                }
             ]
         }
     };
@@ -101,6 +101,26 @@ export interface ContentfulHeadingAndDescriptionType {
     sys: ContentfulSys;
 }
 
+export interface ContentfulIconHeadingShortTextType {
+    title: string;
+    heading: string;
+    shortText: string;
+    icon?: ContentfulIconType;
+    sys: ContentfulSys;
+}
+
+export interface ContentfulSectionWithImageType {
+    title: string;
+    sectionImage: ContentfulImageType;
+    sectionImagePlacement: 'Left' | 'Right';
+    headingWithTextCollection?: {
+        items: ContentfulHeadingAndDescriptionType[];
+    };
+    iconHeadingShortTextCollection?: {
+        items: ContentfulIconHeadingShortTextType[];
+    };
+    sys: ContentfulSys;
+}
 
 export interface ContentfulHeroSectionType {
     title: string;
@@ -118,5 +138,41 @@ export interface ContentfulFrequentlyAskedQuestionType {
         items: ContentfulHeadingAndDescriptionType[];
     };
     caption: string;
+    sys: ContentfulSys;
+}
+
+export interface ContentfulPageReferenceType {
+    title: string;
+    url: string;
+    heroSection?: {
+        sys: { id: string };
+    };
+    sectionWithImagesHeading?: {
+        sys: { id: string };
+    };
+    sectionsWithImagesCollection?: {
+        items: {
+            sys: { id: string };
+        }[];
+    };
+    miscellaneousCollection?: {
+        items: {
+            sys: { id: string };
+        }[];
+    };
+    sys: ContentfulSys;
+}
+
+export interface ContentfulPageType {
+    title: string;
+    url: string;
+    heroSection?: ContentfulHeroSectionType;
+    sectionWithImagesHeading?: ContentfulHeadingAndDescriptionType;
+    sectionsWithImagesCollection?: {
+        items: ContentfulSectionWithImageType[];
+    };
+    miscellaneousCollection?: {
+        items: ContentfulFrequentlyAskedQuestionType[];
+    };
     sys: ContentfulSys;
 }

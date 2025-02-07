@@ -47,19 +47,79 @@ ${SYS}
     description
 }
 `;
-
-export const RICH_TEXT = `
-{
-          json
-          }
-`
-
 export const HEADING_AND_DESCRIPTION = `
 {
-${SYS}
+        sys {
+          id
+          spaceId
+          environmentId
+        }
         title
         heading
         subHeading
-        description ${RICH_TEXT}
-}
+      }
 `
+
+export const ICON_HEADING_SHORT_TEXT = `
+{
+${SYS}
+    title
+    heading
+    shortText
+    icon ${ICON}
+}
+`;
+
+export const SECTION_WITH_IMAGE = `
+{
+${SYS}
+    title
+    sectionImage ${IMAGE}
+    sectionImagePlacement
+    headingWithTextCollection {
+        items ${HEADING_AND_DESCRIPTION}
+    }
+    iconHeadingShortTextCollection {
+        items ${ICON_HEADING_SHORT_TEXT}
+    }
+}
+`;
+
+
+export const HERO_SECTION = `
+{
+${SYS}
+      title
+      sideImage ${IMAGE}
+      headingAndDescription ${HEADING_AND_DESCRIPTION}
+        backgroundImage ${IMAGE}
+      buttonsCollection {
+        items ${LINK}
+      }
+    
+  }
+`;
+
+export const PAGE_WITH_REFERENCES = `
+{
+${SYS}
+    title
+    url
+    heroSection {
+      sys { id }
+    }
+    sectionWithImagesHeading {
+      sys { id }
+    }
+    sectionsWithImagesCollection {
+      items {
+        sys { id }
+      }
+    }
+    miscellaneousCollection {
+      items {
+        sys { id }
+      }
+    }
+}
+`;
