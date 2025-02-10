@@ -36,7 +36,7 @@ export default async function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
         <body className={poppins.className}>
-        <ThemeProvider attribute="class">
+        <ThemeProvider attribute="class" defaultTheme={"light"}>
             <Navbar topHeaderBar={topHeaderBar} navbar={navbar}/>
             <div>{children}</div>
             <Footer slimFooter={slimFooter} fatFooter={fatFooter}/>

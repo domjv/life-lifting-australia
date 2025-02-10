@@ -41,7 +41,6 @@ export async function getSlimFooter(): Promise<ContentfulSlimFooterType | null> 
         const data = await graphqlClient.request<{
             slimFooterCollection: { items: ContentfulSlimFooterType[] }
         }>(GET_SLIM_FOOTER);
-        console.log(GET_SLIM_FOOTER);
         return data.slimFooterCollection.items[0] || null;
     } catch (error) {
         console.error('Error fetching slim footer via GraphQL:', error);
