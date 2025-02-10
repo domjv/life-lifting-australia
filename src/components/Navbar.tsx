@@ -14,53 +14,53 @@ export function Navbar({
   navbar: ContentfulNavbarType;
 }) {
   return (
-    <div className="w-full sticky top-0 z-50">
+    <>
       {topHeaderBar.shouldBeDisplayed && (
-        <div className="dark:bg-gray-800 bg-gray-800">
-          {/* Mobile Top Bar */}
+        <div className="w-full bg-gradient-to-r from-gray-900 to-gray-950">
           <div className="lg:hidden">
-            <div className="flex flex-col items-center space-y-2 py-2 px-4">
-              <ContentfulLink
-                link={topHeaderBar.contactEmail!}
-                className="text-gray-300 hover:text-white text-sm"
-              />
-              <ContentfulLink
-                link={topHeaderBar.contactPhoneNumber!}
-                className="text-gray-300 hover:text-white text-sm"
-              />
-              <div className="flex items-center space-x-4">
+            <div className="grid grid-cols-2 gap-4 py-2 px-4">
+              <div className="flex flex-col space-y-2.5">
+                <ContentfulLink
+                  link={topHeaderBar.contactEmail!}
+                  className="text-gray-200 hover:text-white text-sm flex items-center group"
+                ></ContentfulLink>
+                <ContentfulLink
+                  link={topHeaderBar.contactPhoneNumber!}
+                  className="text-gray-200 hover:text-white text-sm flex items-center group"
+                ></ContentfulLink>
+              </div>
+              <div className="flex flex-wrap items-center justify-end gap-2">
                 {topHeaderBar.socialMediaLinksCollection?.items?.map((link) => (
                   <ContentfulLink
                     key={link.sys.id}
                     link={link}
-                    className="text-gray-300 hover:text-white"
+                    className="text-gray-200 hover:text-white p-1.5 bg-gray-700/50 hover:bg-gray-700 rounded-full transition-colors"
                   />
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Desktop Top Bar */}
           <div className="hidden lg:block">
             <div className="container mx-auto">
               <div className="flex items-center justify-end space-x-6 py-2 px-4">
                 <ContentfulLink
                   link={topHeaderBar.contactEmail!}
-                  className="text-gray-300 hover:text-white text-sm transition-colors"
-                />
-                <div className="h-4 w-px bg-gray-600" />
+                  className="text-gray-200 hover:text-white text-sm transition-colors flex items-center group"
+                ></ContentfulLink>
+                <div className="h-4 w-px bg-gray-700" />
                 <ContentfulLink
                   link={topHeaderBar.contactPhoneNumber!}
-                  className="text-gray-300 hover:text-white text-sm transition-colors"
-                />
-                <div className="h-4 w-px bg-gray-600" />
-                <div className="flex items-center space-x-4">
+                  className="text-gray-200 hover:text-white text-sm transition-colors flex items-center group"
+                ></ContentfulLink>
+                <div className="h-4 w-px bg-gray-700" />
+                <div className="flex items-center space-x-3">
                   {topHeaderBar.socialMediaLinksCollection?.items?.map(
                     (link) => (
                       <ContentfulLink
                         key={link.sys.id}
                         link={link}
-                        className="text-gray-300 hover:text-white transition-colors"
+                        className="text-gray-200 hover:text-white p-1.5 bg-gray-700/50 hover:bg-gray-700 rounded-full transition-colors"
                       />
                     )
                   )}
@@ -70,7 +70,10 @@ export function Navbar({
           </div>
         </div>
       )}
-      <ContentfulNavbar navbar={navbar} />
-    </div>
+
+      <div className="w-full sticky top-0 z-50">
+        <ContentfulNavbar navbar={navbar} />
+      </div>
+    </>
   );
 }
