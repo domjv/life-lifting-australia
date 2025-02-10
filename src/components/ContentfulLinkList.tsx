@@ -14,12 +14,12 @@ export default function ContentfulLinkList({
 
     return (
         <div>
-            {heading != " " ?
-                <h5 className="font-semibold text-gray-700 dark:text-gray-200 pb-3">
+            {heading != " " &&
+                <h4 className="font-semibold text-gray-700 dark:text-gray-200 pb-3 pt-3 lg:pt-0">
                     {heading}
-                </h5> : <div className="font-semibold text-gray-700 dark:text-gray-200 pb-9">
+                </h4>
 
-                </div>}
+            }
             <div className={className}>
                 {listOfLinksCollection.items.map((link) => (
                     <ContentfulLink
