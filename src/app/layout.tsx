@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {Poppins} from "next/font/google";
+import {Lato} from "next/font/google";
 import {ThemeProvider} from "next-themes";
 import "./globals.css";
 import {Navbar} from "@/components/Navbar";
@@ -7,11 +7,11 @@ import {Footer} from "@/components/Footer";
 import {getFatFooter, getNavbar, getSlimFooter, getTopHeaderBar,} from "@/lib/contentful";
 import React, {ReactNode} from "react";
 
-const poppins = Poppins({
+const lato = Lato({
     subsets: ["latin"],
     display: "swap",
-    variable: "--font-poppins",
-    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+    variable: "--font-lato",
+    weight: ["100", "300", "400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ export default async function RootLayout({
 
     return (
         <html lang="en" suppressHydrationWarning>
-        <body className={poppins.className}>
+        <body className={lato.className}>
         <ThemeProvider attribute="class" defaultTheme={"light"}>
             <Navbar topHeaderBar={topHeaderBar} navbar={navbar}/>
             <div>{children}</div>
