@@ -11,7 +11,8 @@ import {
     ContentfulTopHeaderBarType,
     ContentfulPageServicesType,
     ContentfulImageType,
-    ContentfulSys
+    ContentfulSys,
+    ContentfulLinkListType
 } from '@/types/contentful';
 import { graphqlClient } from './graphql';
 import {
@@ -24,7 +25,9 @@ import {
     GET_SECTION_WITH_IMAGE,
     GET_SLIM_FOOTER,
     GET_TOP_HEADER_BAR,
-    GET_SERVICES_PAGE_BY_URL
+    GET_SERVICES_PAGE_BY_URL,
+    GET_ALL_SERVICE_PAGES,
+    GET_LINK_LIST_BY_TITLE
 } from './queries';
 
 
@@ -178,6 +181,36 @@ export async function getServicesPageContent(slug: string): Promise<ContentfulPa
     } catch (error) {
         console.error('Error fetching services page content:', error);
         return null;
+    }
+}
+
+export async function getLinkListByTitle(title: string) {
+    try {
+        const data = await graphqlClient.request<{
+            linkListCollection: {
+                items: ContentfulLinkListType[]
+            }
+        }>(GET_LINK_LIST_BY_TITLE, { title });
+
+        return data.linkListCollection.items[0] || null;
+    } catch (error) {
+        console.error('Error fetching link list by title:', error);
+        return null;
+    }
+}
+
+export async function getAllServicePages() {
+    try {
+        const data = await graphqlClient.request<{
+            pageServicesCollection: {
+                items: Array<{ slug: string }>
+            }
+        }>(GET_ALL_SERVICE_PAGES);
+
+        return data.pageServicesCollection.items;
+    } catch (error) {
+        console.error('Error fetching all service pages:', error);
+        return [];
     }
 }
 

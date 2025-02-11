@@ -1,26 +1,28 @@
 import Image from "next/image";
 import { Container } from "@/components/Container";
-import { getServicesPageContent } from "@/lib/contentful";
-import Link from "next/link";
+import {
+  getServicesPageContent,
+  getLinkListByTitle,
+  getAllServicePages,
+} from "@/lib/contentful";
 import RichTextRenderer from "@/components/RichTextRenderer";
+import ContentfulLink from "@/components/ContentfulLink";
 
 export default async function ServicePage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const page = await getServicesPageContent(params.slug);
+  const [page, servicesList] = await Promise.all([
+    getServicesPageContent(params.slug),
+    getLinkListByTitle("Common | Fat Footer | Link List | Services"),
+  ]);
 
   if (!page) {
     return null;
   }
 
-  const demoServices = [
-    { title: "Personal Training", slug: "personal-training" },
-    { title: "Group Fitness", slug: "group-fitness" },
-    { title: "Nutrition Coaching", slug: "nutrition-coaching" },
-    { title: "Strength Training", slug: "strength-training" },
-  ];
+  const services = servicesList?.listOfLinksCollection.items || [];
 
   return (
     <div className="min-h-screen">
@@ -49,9 +51,6 @@ export default async function ServicePage({
           <div className="lg:col-span-3">
             {page.contentOfThePage && (
               <div>
-                <h2 className="text-3xl font-bold mb-4">
-                  {page.contentOfThePage.heading}
-                </h2>
                 {page.contentOfThePage.description && (
                   <RichTextRenderer
                     content={page.contentOfThePage.description.json}
@@ -61,19 +60,12 @@ export default async function ServicePage({
             )}
           </div>
 
-          {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-4">Our Services</h3>
               <div className="space-y-3">
-                {demoServices.map((service) => (
-                  <Link
-                    key={service.slug}
-                    href={`/services/${service.slug}`}
-                    className="block text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                  >
-                    {service.title}
-                  </Link>
+                {services.map((service) => (
+                  <ContentfulLink link={service} key={service.name} />
                 ))}
               </div>
             </div>
@@ -82,4 +74,11 @@ export default async function ServicePage({
       </Container>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const pages = await getAllServicePages();
+  return pages.map((page) => ({
+    slug: page.slug,
+  }));
 }

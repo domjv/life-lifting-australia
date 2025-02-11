@@ -2,16 +2,23 @@ import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
 import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
-import { ContentfulNavbarType } from "@/types/contentful";
+import {
+  ContentfulNavbarType,
+  ContentfulTopHeaderBarType,
+} from "@/types/contentful";
 import ContentfulLink from "./ContentfulLink";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 interface ContentfulNavbarProps {
   navbar: ContentfulNavbarType;
+  topHeaderBar: ContentfulTopHeaderBarType;
 }
 
-export default function ContentfulNavbar({ navbar }: ContentfulNavbarProps) {
+export default function ContentfulNavbar({
+  navbar,
+  topHeaderBar,
+}: ContentfulNavbarProps) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -127,23 +134,56 @@ export default function ContentfulNavbar({ navbar }: ContentfulNavbarProps) {
                     </svg>
                   </Disclosure.Button>
 
-                  <Disclosure.Panel className="lg:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-950 shadow-lg border-t dark:border-gray-800">
-                    <div className="grid grid-cols-2 gap-4 p-4">
-                      <div className="space-y-2">
+                  <Disclosure.Panel className="lg:hidden absolute top-full left-0 right-0 bg-white/80 dark:bg-gray-950/80 backdrop-blur-lg shadow-lg border-t dark:border-gray-800">
+                    <div className="p-4 space-y-4 max-w-md mx-auto">
+                      {/* Navigation Links */}
+                      <div className="flex flex-col space-y-4 ps-3">
                         {navbarItems.listOfLinksCollection.items.map((link) => (
                           <ContentfulLink
                             key={link.name}
                             link={link}
-                            className="block py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                            className="py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                           />
                         ))}
                       </div>
 
-                      <div className="space-y-4">
+                      {/* Special Button */}
+                      <div className="py-2">
                         <ContentfulLink
                           link={specialNavbarItem}
-                          className="block w-full text-center px-4 py-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
+                          className="w-full inline-block text-center px-4 py-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
                         />
+                      </div>
+
+                      {/* Contact Information */}
+                      <div className="border-t ps-3 border-gray-200 dark:border-gray-800 pt-4 space-y-4 grid">
+                        {topHeaderBar.contactEmail && (
+                          <ContentfulLink
+                            link={topHeaderBar.contactEmail}
+                            className="py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                          />
+                        )}
+                        {topHeaderBar.contactPhoneNumber && (
+                          <ContentfulLink
+                            link={topHeaderBar.contactPhoneNumber}
+                            className="py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                          />
+                        )}
+
+                        {/* Social Media Links */}
+                        {topHeaderBar.socialMediaLinksCollection && (
+                          <div className="flex gap-4 py-2">
+                            {topHeaderBar.socialMediaLinksCollection.items.map(
+                              (link) => (
+                                <ContentfulLink
+                                  key={link.sys.id}
+                                  link={link}
+                                  className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                                />
+                              )
+                            )}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </Disclosure.Panel>

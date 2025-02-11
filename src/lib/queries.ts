@@ -133,3 +133,28 @@ export const GET_SERVICES_PAGE_BY_URL = gql`
         }
     }
 `;
+
+export const GET_LINK_LIST_BY_TITLE = gql`
+    query GetLinkListByTitle($title: String!) {
+        linkListCollection(limit: 1, where: { title: $title }) {
+            items {
+                ${SYS}
+                title
+                heading
+                listOfLinksCollection {
+                    items ${LINK}
+                }
+            }
+        }
+    }
+`;
+
+export const GET_ALL_SERVICE_PAGES = gql`
+  query GetAllServicePages {
+    pageServicesCollection {
+      items {
+        slug
+      }
+    }
+  }
+`;
