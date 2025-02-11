@@ -177,3 +177,11 @@ export interface ContentfulPageType {
     };
     sys: ContentfulSys;
 }
+
+export interface ContentfulPageServicesType {
+    title: string;
+    slug: string;
+    backgroundImage?: ContentfulImageType;
+    contentOfThePage?: ContentfulHeadingAndDescriptionType;
+    sys: ContentfulSys;
+}

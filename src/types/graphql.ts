@@ -57,6 +57,9 @@ export const HEADING_AND_DESCRIPTION = `
         title
         heading
         subHeading
+        description {
+             json
+            }
       }
 `
 
