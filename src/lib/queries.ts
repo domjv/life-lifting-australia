@@ -1,14 +1,14 @@
 import {
-    HEADING_AND_DESCRIPTION,
-    HERO_SECTION,
-    IMAGE,
-    LINK,
-    LINK_LIST,
-    PAGE_WITH_REFERENCES,
-    SECTION_WITH_IMAGE,
-    SYS
+  HEADING_AND_DESCRIPTION,
+  HERO_SECTION,
+  IMAGE,
+  LINK,
+  LINK_LIST,
+  PAGE_WITH_REFERENCES,
+  SECTION_WITH_IMAGE,
+  SYS
 } from '@/types/graphql';
-import {gql} from 'graphql-request';
+import { gql } from 'graphql-request';
 
 
 export const GET_TOP_HEADER_BAR = gql`
@@ -116,4 +116,45 @@ export const GET_PAGE_BY_URL = gql`
             items ${PAGE_WITH_REFERENCES}
         }
     }
+`;
+
+export const GET_SERVICES_PAGE_BY_URL = gql`
+    query GetServicesPageBySlug($slug: String!) {
+        pageServicesCollection(limit: 1, where: { slug: $slug }) {
+            items {
+                ${SYS}
+                title
+                slug
+                backgroundImage ${IMAGE}
+                contentOfThePage {
+                    sys { id }
+                }
+            }
+        }
+    }
+`;
+
+export const GET_LINK_LIST_BY_TITLE = gql`
+    query GetLinkListByTitle($title: String!) {
+        linkListCollection(limit: 1, where: { title: $title }) {
+            items {
+                ${SYS}
+                title
+                heading
+                listOfLinksCollection {
+                    items ${LINK}
+                }
+            }
+        }
+    }
+`;
+
+export const GET_ALL_SERVICE_PAGES = gql`
+  query GetAllServicePages {
+    pageServicesCollection {
+      items {
+        slug
+      }
+    }
+  }
 `;
