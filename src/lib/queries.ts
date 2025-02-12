@@ -158,3 +158,48 @@ export const GET_ALL_SERVICE_PAGES = gql`
     }
   }
 `;
+
+export const GET_ABOUT_US_PAGE = gql`
+    query GetAboutUsPage {
+        pageAboutUsCollection(limit: 1) {
+            items {
+                ${SYS}
+                title
+                backgroundImage ${IMAGE}
+                content {
+                    sys { id }
+                }
+            }
+        }
+    }
+`;
+
+export const GET_EVENT_GALLERY_PAGE = gql`
+    query GetEventGalleryPage {
+        pageEventGalleryCollection(limit: 1) {
+            items {
+                ${SYS}
+                title
+                slug
+                backgroundImage ${IMAGE}
+                imagesCollection {
+                    items ${IMAGE}
+                }
+            }
+        }
+    }
+`;
+
+export const GET_CONTACT_US_PAGE = gql`
+    query GetContactUsPage {
+        pageContactUsCollection(limit: 1) {
+            items {
+                ${SYS}
+                title
+                slug
+                backgroundImage ${IMAGE}
+                iFrameUrl
+            }
+        }
+    }
+`;

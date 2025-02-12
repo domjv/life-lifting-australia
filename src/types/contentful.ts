@@ -185,3 +185,26 @@ export interface ContentfulPageServicesType {
     contentOfThePage?: ContentfulHeadingAndDescriptionType;
     sys: ContentfulSys;
 }
+
+export interface ContentfulPageAboutUsType {
+    title: string;
+    backgroundImage?: ContentfulImageType;
+    content?: ContentfulHeadingAndDescriptionType;
+    sys: ContentfulSys;
+}
+
+export interface ContentfulPageEventGalleryType {
+    title: string;
+    slug: string;
+    images?: ContentfulImageType[];
+    backgroundImage?: ContentfulImageType;
+    sys: ContentfulSys;
+}
+
+export interface ContentfulPageContactUsType {
+    title: string;
+    slug: string;
+    backgroundImage?: ContentfulImageType;
+    iFrameUrl: string;
+    sys: ContentfulSys;
+}
