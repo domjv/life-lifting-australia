@@ -189,3 +189,17 @@ export const GET_EVENT_GALLERY_PAGE = gql`
         }
     }
 `;
+
+export const GET_CONTACT_US_PAGE = gql`
+    query GetContactUsPage {
+        pageContactUsCollection(limit: 1) {
+            items {
+                ${SYS}
+                title
+                slug
+                backgroundImage ${IMAGE}
+                iFrameUrl
+            }
+        }
+    }
+`;

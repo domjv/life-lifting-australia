@@ -200,3 +200,11 @@ export interface ContentfulPageEventGalleryType {
     backgroundImage?: ContentfulImageType;
     sys: ContentfulSys;
 }
+
+export interface ContentfulPageContactUsType {
+    title: string;
+    slug: string;
+    backgroundImage?: ContentfulImageType;
+    iFrameUrl: string;
+    sys: ContentfulSys;
+}
