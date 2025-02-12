@@ -12,7 +12,8 @@ import {
     ContentfulPageServicesType,
     ContentfulImageType,
     ContentfulSys,
-    ContentfulLinkListType
+    ContentfulLinkListType,
+    ContentfulPageAboutUsType
 } from '@/types/contentful';
 import { graphqlClient } from './graphql';
 import {
@@ -27,7 +28,8 @@ import {
     GET_TOP_HEADER_BAR,
     GET_SERVICES_PAGE_BY_URL,
     GET_ALL_SERVICE_PAGES,
-    GET_LINK_LIST_BY_TITLE
+    GET_LINK_LIST_BY_TITLE,
+    GET_ABOUT_US_PAGE
 } from './queries';
 
 
@@ -211,6 +213,39 @@ export async function getAllServicePages() {
     } catch (error) {
         console.error('Error fetching all service pages:', error);
         return [];
+    }
+}
+
+export async function getAboutUsPageContent(): Promise<ContentfulPageAboutUsType | null> {
+    try {
+        const page = await graphqlClient.request<{
+            pageAboutUsCollection: {
+                items: ContentfulPageAboutUsType[]
+            }
+        }>(GET_ABOUT_US_PAGE);
+
+
+        const pageData = page.pageAboutUsCollection.items[0];
+        if (!pageData) return null;
+
+        const contentOfThePage = pageData.content
+            ? await graphqlClient.request<{
+                headingAndDescription: ContentfulHeadingAndDescriptionType
+            }>(GET_HEADING_AND_DESCRIPTION, { id: pageData.content.sys.id })
+                .then(data => data.headingAndDescription)
+            : null;
+
+        const pageContent: ContentfulPageAboutUsType = {
+            sys: pageData.sys,
+            title: pageData.title,
+            backgroundImage: pageData.backgroundImage,
+            content: contentOfThePage || undefined
+        };
+
+        return pageContent;
+    } catch (error) {
+        console.error('Error fetching about us page content:', error);
+        return null;
     }
 }
 

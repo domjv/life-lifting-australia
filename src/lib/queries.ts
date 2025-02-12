@@ -158,3 +158,18 @@ export const GET_ALL_SERVICE_PAGES = gql`
     }
   }
 `;
+
+export const GET_ABOUT_US_PAGE = gql`
+    query GetAboutUsPage {
+        pageAboutUsCollection(limit: 1) {
+            items {
+                ${SYS}
+                title
+                backgroundImage ${IMAGE}
+                content {
+                    sys { id }
+                }
+            }
+        }
+    }
+`;

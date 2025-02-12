@@ -185,3 +185,10 @@ export interface ContentfulPageServicesType {
     contentOfThePage?: ContentfulHeadingAndDescriptionType;
     sys: ContentfulSys;
 }
+
+export interface ContentfulPageAboutUsType {
+    title: string;
+    backgroundImage?: ContentfulImageType;
+    content?: ContentfulHeadingAndDescriptionType;
+    sys: ContentfulSys;
+}
