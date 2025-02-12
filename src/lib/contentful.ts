@@ -13,7 +13,8 @@ import {
     ContentfulImageType,
     ContentfulSys,
     ContentfulLinkListType,
-    ContentfulPageAboutUsType
+    ContentfulPageAboutUsType,
+    ContentfulPageEventGalleryType
 } from '@/types/contentful';
 import { graphqlClient } from './graphql';
 import {
@@ -29,7 +30,8 @@ import {
     GET_SERVICES_PAGE_BY_URL,
     GET_ALL_SERVICE_PAGES,
     GET_LINK_LIST_BY_TITLE,
-    GET_ABOUT_US_PAGE
+    GET_ABOUT_US_PAGE,
+    GET_EVENT_GALLERY_PAGE
 } from './queries';
 
 
@@ -245,6 +247,38 @@ export async function getAboutUsPageContent(): Promise<ContentfulPageAboutUsType
         return pageContent;
     } catch (error) {
         console.error('Error fetching about us page content:', error);
+        return null;
+    }
+}
+
+export async function getEventGalleryContent(): Promise<ContentfulPageEventGalleryType | null> {
+    try {
+        const page = await graphqlClient.request<{
+            pageEventGalleryCollection: {
+                items: Array<{
+                    sys: ContentfulSys;
+                    title: string;
+                    slug: string;
+                    backgroundImage?: ContentfulImageType;
+                    imagesCollection?: {
+                        items: ContentfulImageType[];
+                    };
+                }>;
+            };
+        }>(GET_EVENT_GALLERY_PAGE);
+
+        const pageData = page.pageEventGalleryCollection.items[0];
+        if (!pageData) return null;
+
+        return {
+            sys: pageData.sys,
+            title: pageData.title,
+            slug: pageData.slug,
+            backgroundImage: pageData.backgroundImage,
+            images: pageData.imagesCollection?.items
+        };
+    } catch (error) {
+        console.error('Error fetching event gallery content:', error);
         return null;
     }
 }

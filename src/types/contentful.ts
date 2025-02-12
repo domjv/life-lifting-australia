@@ -192,3 +192,11 @@ export interface ContentfulPageAboutUsType {
     content?: ContentfulHeadingAndDescriptionType;
     sys: ContentfulSys;
 }
+
+export interface ContentfulPageEventGalleryType {
+    title: string;
+    slug: string;
+    images?: ContentfulImageType[];
+    backgroundImage?: ContentfulImageType;
+    sys: ContentfulSys;
+}
