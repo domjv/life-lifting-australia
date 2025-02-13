@@ -196,6 +196,7 @@ export interface ContentfulPageAboutUsType {
 export interface ContentfulPageEventGalleryType {
     title: string;
     slug: string;
+    heading: string;
     images?: ContentfulImageType[];
     backgroundImage?: ContentfulImageType;
     sys: ContentfulSys;
@@ -204,6 +205,7 @@ export interface ContentfulPageEventGalleryType {
 export interface ContentfulPageContactUsType {
     title: string;
     slug: string;
+    heading: string;
     backgroundImage?: ContentfulImageType;
     iFrameUrl: string;
     sys: ContentfulSys;
