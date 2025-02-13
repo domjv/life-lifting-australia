@@ -9,6 +9,9 @@ on:
   push:
     branches: ["main"]
 
+  repository_dispatch:  # Allow external triggers from Contentful
+    types: [contentful_update]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
