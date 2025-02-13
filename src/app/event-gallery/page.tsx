@@ -25,7 +25,7 @@ export default async function EventGalleryPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" />
           <div className="absolute bottom-0 left-0 right-0 p-8">
             <Container>
-              <h1 className="text-4xl font-bold text-white">{page.title}</h1>
+              <h1 className="text-4xl font-bold text-white">{page.heading}</h1>
             </Container>
           </div>
         </div>

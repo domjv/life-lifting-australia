@@ -181,6 +181,7 @@ export const GET_EVENT_GALLERY_PAGE = gql`
                 ${SYS}
                 title
                 slug
+                heading
                 backgroundImage ${IMAGE}
                 imagesCollection {
                     items ${IMAGE}
@@ -197,6 +198,7 @@ export const GET_CONTACT_US_PAGE = gql`
                 ${SYS}
                 title
                 slug
+                heading
                 backgroundImage ${IMAGE}
                 iFrameUrl
             }

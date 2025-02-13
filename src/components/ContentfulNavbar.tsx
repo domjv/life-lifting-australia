@@ -100,7 +100,7 @@ export default function ContentfulNavbar({
             </div>
 
             <Disclosure>
-              {({ open }) => (
+              {({ open, close }) => (
                 <>
                   <Disclosure.Button className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none">
                     <span className="sr-only">Open main menu</span>
@@ -139,16 +139,17 @@ export default function ContentfulNavbar({
                       {/* Navigation Links */}
                       <div className="flex flex-col space-y-4 ps-3">
                         {navbarItems.listOfLinksCollection.items.map((link) => (
-                          <ContentfulLink
-                            key={link.name}
-                            link={link}
-                            className="py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                          />
+                          <div key={link.name} onClick={() => close()}>
+                            <ContentfulLink
+                              link={link}
+                              className="py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                            />
+                          </div>
                         ))}
                       </div>
 
                       {/* Special Button */}
-                      <div className="py-2">
+                      <div className="py-2" onClick={() => close()}>
                         <ContentfulLink
                           link={specialNavbarItem}
                           className="w-full inline-block text-center px-4 py-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
@@ -158,16 +159,20 @@ export default function ContentfulNavbar({
                       {/* Contact Information */}
                       <div className="border-t ps-3 border-gray-200 dark:border-gray-800 pt-4 space-y-4 grid">
                         {topHeaderBar.contactEmail && (
-                          <ContentfulLink
-                            link={topHeaderBar.contactEmail}
-                            className="py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                          />
+                          <div onClick={() => close()}>
+                            <ContentfulLink
+                              link={topHeaderBar.contactEmail}
+                              className="py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                            />
+                          </div>
                         )}
                         {topHeaderBar.contactPhoneNumber && (
-                          <ContentfulLink
-                            link={topHeaderBar.contactPhoneNumber}
-                            className="py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                          />
+                          <div onClick={() => close()}>
+                            <ContentfulLink
+                              link={topHeaderBar.contactPhoneNumber}
+                              className="py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                            />
+                          </div>
                         )}
 
                         {/* Social Media Links */}
@@ -175,11 +180,12 @@ export default function ContentfulNavbar({
                           <div className="flex gap-4 py-2">
                             {topHeaderBar.socialMediaLinksCollection.items.map(
                               (link) => (
-                                <ContentfulLink
-                                  key={link.sys.id}
-                                  link={link}
-                                  className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                                />
+                                <div key={link.sys.id} onClick={() => close()}>
+                                  <ContentfulLink
+                                    link={link}
+                                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                                  />
+                                </div>
                               )
                             )}
                           </div>

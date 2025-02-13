@@ -35,6 +35,7 @@ import {
     GET_EVENT_GALLERY_PAGE,
     GET_CONTACT_US_PAGE
 } from './queries';
+import { headers } from 'next/headers';
 
 
 export async function getTopHeaderBar(): Promise<ContentfulTopHeaderBarType | null> {
@@ -261,6 +262,7 @@ export async function getEventGalleryContent(): Promise<ContentfulPageEventGalle
                     sys: ContentfulSys;
                     title: string;
                     slug: string;
+                    heading: string;
                     backgroundImage?: ContentfulImageType;
                     imagesCollection?: {
                         items: ContentfulImageType[];
@@ -276,6 +278,7 @@ export async function getEventGalleryContent(): Promise<ContentfulPageEventGalle
             sys: pageData.sys,
             title: pageData.title,
             slug: pageData.slug,
+            heading: pageData.heading,
             backgroundImage: pageData.backgroundImage,
             images: pageData.imagesCollection?.items
         };
@@ -293,6 +296,7 @@ export async function getContactUsContent(): Promise<ContentfulPageContactUsType
                     sys: ContentfulSys;
                     title: string;
                     slug: string;
+                    heading: string;
                     backgroundImage?: ContentfulImageType;
                     iFrameUrl: string;
                 }>;
@@ -306,6 +310,7 @@ export async function getContactUsContent(): Promise<ContentfulPageContactUsType
             sys: pageData.sys,
             title: pageData.title,
             slug: pageData.slug,
+            heading: pageData.heading,
             backgroundImage: pageData.backgroundImage,
             iFrameUrl: pageData.iFrameUrl
         };
