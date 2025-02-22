@@ -192,8 +192,23 @@ export const GET_EVENT_GALLERY_PAGE = gql`
 `;
 
 export const GET_CONTACT_US_PAGE = gql`
-    query GetContactUsPage {
+    query GET_CONTACT_US_PAGE {
         pageContactUsCollection(limit: 1) {
+            items {
+                ${SYS}
+                title
+                slug
+                heading
+                backgroundImage ${IMAGE}
+                iFrameUrl
+            }
+        }
+    }
+`;
+
+export const GET_IFRAME_PAGE = gql`
+    query GetIframePage($slug: String!) {
+        pageContactUsCollection(limit: 1, where: { slug: $slug }) {
             items {
                 ${SYS}
                 title

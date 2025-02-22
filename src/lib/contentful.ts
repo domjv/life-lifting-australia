@@ -33,10 +33,11 @@ import {
     GET_LINK_LIST_BY_TITLE,
     GET_ABOUT_US_PAGE,
     GET_EVENT_GALLERY_PAGE,
-    GET_CONTACT_US_PAGE
+    GET_CONTACT_US_PAGE,
+    GET_IFRAME_PAGE
 } from './queries';
 import { headers } from 'next/headers';
-
+import { gql } from 'graphql-request';
 
 export async function getTopHeaderBar(): Promise<ContentfulTopHeaderBarType | null> {
     try {
@@ -316,6 +317,63 @@ export async function getContactUsContent(): Promise<ContentfulPageContactUsType
         };
     } catch (error) {
         console.error('Error fetching contact us page content:', error);
+        return null;
+    }
+}
+
+export async function getAllIframePages() {
+    try {
+        const data = await graphqlClient.request<{
+            pageContactUsCollection: {
+                items: Array<{ slug: string }>;
+            };
+        }>(
+            gql`
+                query GetAllIframePages {
+                    pageContactUsCollection {
+                        items {
+                            slug
+                        }
+                    }
+                }
+            `
+        );
+
+        return data.pageContactUsCollection.items;
+    } catch (error) {
+        console.error('Error fetching all iframe pages:', error);
+        return [];
+    }
+}
+
+export async function getIframePageContent(slug: string): Promise<ContentfulPageContactUsType | null> {
+    try {
+        const page = await graphqlClient.request<{
+            pageContactUsCollection: {
+                items: Array<{
+                    sys: ContentfulSys;
+                    title: string;
+                    slug: string;
+                    heading: string;
+                    backgroundImage?: ContentfulImageType;
+                    iFrameUrl: string;
+                }>;
+            };
+        }>(GET_IFRAME_PAGE, { slug });
+
+        const pageData = page.pageContactUsCollection.items[0];
+        if (!pageData) return null;
+
+        return {
+            sys: pageData.sys,
+            title: pageData.title,
+            slug: pageData.slug,
+            heading: pageData.heading,
+            backgroundImage: pageData.backgroundImage,
+            iFrameUrl: pageData.iFrameUrl
+        };
+    } catch (error) {
+        console.error('Error fetching iframe page content:', error);
         return null;
     }
 }
