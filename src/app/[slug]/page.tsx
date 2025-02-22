@@ -1,13 +1,25 @@
 import Image from "next/image";
 import { Container } from "@/components/Container";
-import { getContactUsContent } from "@/lib/contentful";
+import { getIframePageContent, getAllIframePages } from "@/lib/contentful";
 import { ResponsiveIframe } from "@/components/ResponsiveIframe";
+import { notFound } from "next/navigation";
 
-export default async function ContactUsPage() {
-  const page = await getContactUsContent();
+export async function generateStaticParams() {
+  const pages = await getAllIframePages();
+  return pages.map((page) => ({
+    slug: page.slug,
+  }));
+}
+
+export default async function IframePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const page = await getIframePageContent(params.slug);
 
   if (!page) {
-    return null;
+    notFound();
   }
 
   return (
@@ -33,7 +45,7 @@ export default async function ContactUsPage() {
 
       <Container className="py-12">
         <div className="max-w-4xl mx-auto">
-          <ResponsiveIframe src={page.iFrameUrl} title="Contact Form" />
+          <ResponsiveIframe src={page.iFrameUrl} title={page.title} />
         </div>
       </Container>
     </div>
