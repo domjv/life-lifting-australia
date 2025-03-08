@@ -28,6 +28,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log Event
+        run: echo "Repository Dispatch event received!"
   # Build job
   build:
     runs-on: ubuntu-latest
