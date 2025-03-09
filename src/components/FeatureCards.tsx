@@ -22,7 +22,7 @@ const FeatureCard = ({ title, subtitle }: FeatureCardProps) => {
 
 export default function FeatureCards({ features }: FeatureCardsProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 lg:ms-44 lg:me-44">
       {features.map((feature, index) => (
         <FeatureCard key={index} {...feature} />
       ))}

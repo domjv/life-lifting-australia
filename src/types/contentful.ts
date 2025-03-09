@@ -11,6 +11,15 @@ export interface ContentfulIconType {
     sys: ContentfulSys;
 }
 
+export interface ContentfulTestimonialType {
+    title: string;
+    personImage: ContentfulImageType;
+    personName: string;
+    personDesignation: string;
+    testimonialQuote: string;
+    sys: ContentfulSys;
+}
+
 export interface ContentfulLinkType {
     name: string;
     displayText: string;
@@ -161,6 +170,9 @@ export interface ContentfulPageReferenceType {
             sys: { id: string };
         }[];
     };
+    testimonialsCollection?: {
+        items: ContentfulTestimonialType[];
+    };
     sys: ContentfulSys;
 }
 
@@ -175,6 +187,7 @@ export interface ContentfulPageType {
     miscellaneousCollection?: {
         items: ContentfulFrequentlyAskedQuestionType[];
     };
+    testimonials?: ContentfulTestimonialType[];
     sys: ContentfulSys;
 }
 

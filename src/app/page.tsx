@@ -6,6 +6,7 @@ import { Faq } from "@/components/Faq";
 import { getPageContent } from "@/lib/contentful";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import FeatureCards from "@/components/FeatureCards";
+import { Testimonials } from "@/components/Testimonials";
 
 export default async function Home() {
   const page = await getPageContent("/");
@@ -45,6 +46,16 @@ export default async function Home() {
         {page.sectionsWithImagesCollection?.items.map((section) => (
           <ContentfulSectionWithImage key={section.title} section={section} />
         ))}
+
+        {page.testimonials && page.testimonials.length > 0 && (
+          <>
+            <SectionTitle
+              title="What Our Clients Say"
+              align="center"
+            ></SectionTitle>
+            <Testimonials testimonials={page.testimonials} />
+          </>
+        )}
 
         {page.miscellaneousCollection?.items.map((item) => {
           if ("questionsCollection" in item) {
