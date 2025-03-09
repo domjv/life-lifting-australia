@@ -103,6 +103,17 @@ ${SYS}
   }
 `;
 
+export const TESTIMONIAL = `
+{
+${SYS}
+  title
+  personImage ${IMAGE}
+  personName
+  personDesignation
+  testimonialQuote
+}
+`;
+
 export const PAGE_WITH_REFERENCES = `
 {
 ${SYS}
@@ -123,6 +134,9 @@ ${SYS}
       items {
         sys { id }
       }
+    }
+    testimonialsCollection {
+      items ${TESTIMONIAL}
     }
 }
 `;

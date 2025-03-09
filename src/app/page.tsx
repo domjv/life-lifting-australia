@@ -4,6 +4,9 @@ import { Container } from "@/components/Container";
 import { SectionTitle } from "@/components/SectionTitle";
 import { Faq } from "@/components/Faq";
 import { getPageContent } from "@/lib/contentful";
+import RichTextRenderer from "@/components/RichTextRenderer";
+import FeatureCards from "@/components/FeatureCards";
+import { Testimonials } from "@/components/Testimonials";
 
 export default async function Home() {
   const page = await getPageContent("/");
@@ -12,14 +15,47 @@ export default async function Home() {
     return <></>;
   }
 
+  // Extract features from the description content
+  const features =
+    page.sectionWithImagesHeading?.description?.json.content
+      .filter(
+        (content: any) =>
+          content.nodeType === "paragraph" && content.content?.[0]?.value
+      )
+      .map((content: any) => {
+        const text = content.content[0].value;
+        const [title, subtitle] = text
+          .split("–")
+          .map((str: string) => str.trim());
+        return {
+          title,
+          subtitle,
+        };
+      }) || [];
+
   return (
     <>
       {page.heroSection && <Hero heroSection={page.heroSection} />}
-
+      <Container>
+        <SectionTitle
+          title={page.sectionWithImagesHeading?.heading}
+        ></SectionTitle>
+        {features.length > 0 && <FeatureCards features={features} />}
+      </Container>
       <Container>
         {page.sectionsWithImagesCollection?.items.map((section) => (
           <ContentfulSectionWithImage key={section.title} section={section} />
         ))}
+
+        {page.testimonials && page.testimonials.length > 0 && (
+          <>
+            <SectionTitle
+              title="What Our Clients Say"
+              align="center"
+            ></SectionTitle>
+            <Testimonials testimonials={page.testimonials} />
+          </>
+        )}
 
         {page.miscellaneousCollection?.items.map((item) => {
           if ("questionsCollection" in item) {

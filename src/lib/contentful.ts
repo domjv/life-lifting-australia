@@ -143,7 +143,8 @@ export async function getPageContent(slug: string) {
             sectionsWithImagesCollection: {
                 items: sectionsWithImages,
             },
-            sectionWithImagesHeading: sectionWithImagesHeading!
+            sectionWithImagesHeading: sectionWithImagesHeading!,
+            testimonials: pageData.testimonialsCollection?.items || []
         }
 
         return pageContent;
