@@ -25,7 +25,7 @@ export default function RichTextRenderer({
     },
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node: any, children: React.ReactNode) => (
-        <p className="mb-4">{children}</p>
+        <div className="mb-4">{children}</div>
       ),
       [BLOCKS.HEADING_1]: (node: any, children: React.ReactNode) => (
         <h1 className="text-4xl font-bold mb-4">{children}</h1>
@@ -34,25 +34,25 @@ export default function RichTextRenderer({
         <h2 className="text-3xl font-bold mb-3">{children}</h2>
       ),
       [BLOCKS.HEADING_3]: (node: any, children: React.ReactNode) => (
-        <h3 className="text-2xl font-bold mb-3">{children}</h3>
+        <div className="text-2xl font-bold mb-3">{children}</div>
       ),
       [BLOCKS.HEADING_4]: (node: any, children: React.ReactNode) => (
-        <h4 className="text-xl font-bold mb-3">{children}</h4>
+        <div className="text-xl font-bold mb-3">{children}</div>
       ),
       [BLOCKS.HEADING_5]: (node: any, children: React.ReactNode) => (
-        <h5 className="text-lg font-bold mb-2">{children}</h5>
+        <div className="text-lg font-bold mb-2">{children}</div>
       ),
       [BLOCKS.HEADING_6]: (node: any, children: React.ReactNode) => (
         <h6 className="text-base font-bold mb-2">{children}</h6>
       ),
       [BLOCKS.UL_LIST]: (node: any, children: React.ReactNode) => (
-        <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>
+        <ul className="list-disc pl-4 mb-4 space-y-2">{children}</ul>
       ),
       [BLOCKS.OL_LIST]: (node: any, children: React.ReactNode) => (
-        <ol className="list-decimal list-inside mb-4 space-y-2">{children}</ol>
+        <ol className="list-decimal pl-4 mb-4 space-y-2">{children}</ol>
       ),
       [BLOCKS.LIST_ITEM]: (node: any, children: React.ReactNode) => (
-        <li className="ml-4">{children}</li>
+        <li>{children}</li>
       ),
       [BLOCKS.QUOTE]: (node: any, children: React.ReactNode) => (
         <blockquote className="border-l-4 border-gray-300 dark:border-gray-700 pl-4 my-4 italic">

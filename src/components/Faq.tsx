@@ -2,12 +2,14 @@
 import React from "react";
 import { Container } from "@/components/Container";
 import {
+  Description,
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
 import { ContentfulHeadingAndDescriptionType } from "@/types/contentful";
+import RichTextRenderer from "./RichTextRenderer";
 
 export const Faq = ({
   questions,
@@ -31,7 +33,7 @@ export const Faq = ({
                     />
                   </DisclosureButton>
                   <DisclosurePanel className="px-4 pt-4 pb-2 text-gray-500 dark:text-gray-300">
-                    {question.subHeading}
+                    <RichTextRenderer content={question.description?.json} />
                   </DisclosurePanel>
                 </>
               )}
