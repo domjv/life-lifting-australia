@@ -18,7 +18,7 @@ export default function ContentfulSlimFooter({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="mt-4 py-4 bg-white dark:bg-gray-900"
+      className="mt-4 py-4"
     >
       <div className="container mx-auto lg:px-4">
         <motion.div
