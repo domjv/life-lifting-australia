@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { ContentfulHeroSectionType } from "@/types/contentful";
-import ContentfulLink from "./ContentfulLink";
+import AnimatedButton from "./AnimatedButton";
 import { motion } from "framer-motion";
 
 export const Hero = ({
@@ -41,8 +41,8 @@ export const Hero = ({
             className="order-2 lg:order-1"
           >
             <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="max-w-2xl space-y-6 p-6 rounded-2xl bg-white/20 dark:bg-gray-900/20 backdrop-blur-md"
+              whileHover={{ scale: 1.0 }}
+              className="max-w-2xl space-y-6 p-6"
             >
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -67,10 +67,14 @@ export const Hero = ({
                 transition={{ duration: 0.5, delay: 0.9 }}
                 className="flex flex-col sm:flex-row gap-4 pt-4"
               >
-                <ContentfulLink link={heroSection.buttonsCollection.items[0]} />
+                <AnimatedButton
+                  link={heroSection.buttonsCollection.items[0]}
+                  isPrimary={true}
+                />
                 {heroSection.buttonsCollection.items.length > 1 && (
-                  <ContentfulLink
+                  <AnimatedButton
                     link={heroSection.buttonsCollection.items[1]}
+                    isPrimary={false}
                   />
                 )}
               </motion.div>
